@@ -4,87 +4,295 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Forward Place - アプリ開発・運営</title>
+  <!-- Google Fonts: モダンな標準フォントを設定 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --border-color: #e2e8f0;
+      --accent-price: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.7;
+      color: var(--text-main);
+      background-color: var(--bg-color);
+      padding: 40px 16px;
+    }
+
+    .container {
       max-width: 800px;
       margin: 0 auto;
-      padding: 40px 20px;
-      color: #2c3e50;
-      background-color: #f8f9fa;
     }
-    .container {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+    /* ヒーローヘッダー */
+    header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
     }
-    h1 {
-      border-bottom: 3px solid #0066cc;
-      padding-bottom: 10px;
-      color: #1a252f;
-      font-size: 28px;
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: rgba(37, 99, 235, 0.25);
+      filter: blur(80px);
+      border-radius: 50%;
     }
-    h2 {
-      color: #0066cc;
-      margin-top: 30px;
-      font-size: 20px;
-      border-left: 4px solid #0066cc;
-      padding-left: 10px;
+
+    header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
     }
+
+    header p {
+      color: #94a3b8;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* カード・セクション */
     .card {
-      border: 1px solid #e1e8ed;
-      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 20px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+
+    /* アプリカード特有デザイン */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .app-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .badge {
+      background-color: #dbeafe;
+      color: #1e40af;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+    }
+
+    .app-desc {
+      color: var(--text-sub);
+      margin-bottom: 16px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .feature-list li {
+      background: #f1f5f9;
+      padding: 10px 14px;
       border-radius: 8px;
-      background-color: #fafbfc;
-      margin-top: 15px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .price-tag {
+
+    .feature-list li::before {
+      content: '✓';
+      color: var(--primary);
       font-weight: bold;
-      color: #d9534f;
     }
-    ul { padding-left: 20px; }
-    li { margin-bottom: 8px; }
+
+    /* 料金プラン */
+    .price-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      padding: 16px 20px;
+      border-radius: 12px;
+    }
+
+    .price-val {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent-price);
+    }
+
+    /* 事業者情報テーブル */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .info-table tr {
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .info-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .info-table th, .info-table td {
+      padding: 14px 8px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .info-table th {
+      width: 30%;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    /* JS用: コピーボタン */
+    .copy-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: background-color 0.2s;
+    }
+
+    .copy-btn:hover {
+      background-color: var(--primary-hover);
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Forward Place</h1>
-    <p>Forward Placeでは、スマートフォン向け（iOS / Android）アプリケーションの企画・開発・運営を行っております。</p>
 
-    <h2>開発中のサービス・アプリ</h2>
+  <div class="container">
+    <!-- ヘッダー -->
+    <header>
+      <h1>Forward Place</h1>
+      <p>スマートフォン向け（iOS / Android）アプリケーションの企画・開発・運営を行っております。</p>
+    </header>
+
+    <!-- 開発中サービス -->
     <div class="card">
-      <h3>Anti-dopa （開発進行中）</h3>
-      <p><strong>【概要】</strong><br>スマホ依存を利用者の忍耐力で解消するアプリ</p>
-      <p><strong>【主な機能】</strong></p>
-      <ul>
+      <h2>開発中のサービス・アプリ</h2>
+      <div class="app-header">
+        <div class="app-title">Anti-dopa</div>
+        <span class="badge">開発進行中</span>
+      </div>
+      <p class="app-desc">スマホ依存を利用者の忍耐力で解消する次世代アプリ</p>
+
+      <ul class="feature-list">
         <li>アプリ利用制限機能</li>
         <li>利用振り返り機能</li>
         <li>利用時間表示機能</li>
       </ul>
     </div>
 
-    <h2>事業モデル・利用料金</h2>
-    <ul>
-      <li><strong>自社サービス（アプリ内課金）：</strong> 基本機能無料 / プレミアムプラン：月額 <span class="price-tag">100円（税込）</span></li>
-    </ul>
+    <!-- 利用料金 -->
+    <div class="card">
+      <h2>事業モデル・利用料金</h2>
+      <div class="price-card">
+        <div>
+          <strong>自社サービス（アプリ内課金）</strong>
+          <div style="font-size: 13px; color: var(--text-sub);">基本機能無料 / プレミアムプラン</div>
+        </div>
+        <div class="price-val">月額 100円 <span style="font-size: 12px; color: var(--text-sub);">(税込)</span></div>
+      </div>
+    </div>
 
-    <h2>事業者情報</h2>
-    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-      <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee; width: 30%;"><strong>運営</strong></td>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">Forward Place</td>
-      </tr>
-      <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>事業内容</strong></td>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">iOS/Androidアプリケーションの企画・開発・運営</td>
-      </tr>
-      <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>お問い合わせ先</strong></td>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">forwardplace.dev@gmail.com</td>
-      </tr>
-    </table>
+    <!-- 事業者情報 -->
+    <div class="card">
+      <h2>事業者情報</h2>
+      <table class="info-table">
+        <tr>
+          <th>運営</th>
+          <td>Forward Place</td>
+        </tr>
+        <tr>
+          <th>事業内容</th>
+          <td>iOS/Androidアプリケーションの企画・開発・運営</td>
+        </tr>
+        <tr>
+          <th>お問い合わせ</th>
+          <td>
+            <span id="email-text">forwardplace.dev@gmail.com</span>
+            <button class="copy-btn" onclick="copyEmail()">アドレスをコピー</button>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
+
+  <!-- JavaScript（インタラクティブな動き） -->
+  <script>
+    function copyEmail() {
+      const email = document.getElementById('email-text').innerText;
+      navigator.clipboard.writeText(email).then(() => {
+        alert('メールアドレスをクリップボードにコピーしました！');
+      }).catch(err => {
+        console.error('コピーに失敗しました', err);
+      });
+    }
+  </script>
+
 </body>
 </html>
