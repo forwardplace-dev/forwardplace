@@ -194,13 +194,22 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:10px;
+    flex-wrap:wrap;
+    gap:8px 18px;
     margin-top:56px;
     color:var(--paper-faint);
     font-size:11.5px;
     letter-spacing:0.08em;
   }
+  footer .footer-brand{ display:flex; align-items:center; gap:10px; }
   footer svg{ opacity:0.6; }
+  footer a{
+    color:var(--paper-dim);
+    text-underline-offset:3px;
+    text-decoration-color:var(--line-strong);
+  }
+  footer a:hover{ text-decoration-color:var(--accent); }
+  footer a:focus-visible{ outline:1px solid var(--accent); outline-offset:3px; }
 </style>
 </head>
 <body>
@@ -239,7 +248,7 @@
     <div class="spec-row">
       <div>
         <div class="spec-label">自社サービス(アプリ内課金)</div>
-        <div class="spec-note">基本機能無料 / プレミアムプラン</div>
+        <div class="spec-note">初回起動から14日間は無料でお試しいただけます。以降は月額プランの購読が必要です。</div>
       </div>
       <div class="spec-value">¥100<small>/ 月・税込</small></div>
     </div>
@@ -267,12 +276,16 @@
   </section>
 
   <footer>
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="9" stroke="#636156" stroke-width="1.4"/>
-      <line x1="12" y1="12" x2="9" y2="7" stroke="#636156" stroke-width="1.4" stroke-linecap="round"/>
-      <line x1="12" y1="12" x2="15.5" y2="6.5" stroke="#636156" stroke-width="1.4" stroke-linecap="round"/>
-    </svg>
-    <span>Forward Place</span>
+    <div class="footer-brand">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="9" stroke="#636156" stroke-width="1.4"/>
+        <line x1="12" y1="12" x2="9" y2="7" stroke="#636156" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="12" y1="12" x2="15.5" y2="6.5" stroke="#636156" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span>Forward Place</span>
+    </div>
+    <a href="/privacy.html">プライバシーポリシー</a>
+    <a href="/tokushoho.html">特定商取引法に基づく表記</a>
   </footer>
 
 </div>
