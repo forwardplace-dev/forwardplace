@@ -145,7 +145,7 @@
   }
   .spec-row + .spec-row{ border-top:none; }
   .spec-label{ font-size:14px; color:var(--paper); }
-  .spec-note{ font-size:12.5px; color:var(--paper-faint); margin-top:6px; }
+  .spec-note{ font-size:12.5px; color:var(--paper-dim); margin-top:6px; }
   .spec-value{
     font-family:'JetBrains Mono', monospace;
     font-variant-numeric: tabular-nums;
@@ -170,9 +170,9 @@
   }
   .info-row:last-child{ border-bottom:1px solid var(--line); }
   .info-row dt{ color:var(--paper-faint); font-weight:400; }
-  .info-row dd{ color:var(--paper); }
+  .info-row dd{ color:var(--paper); min-width:0; }
   .contact-line{ display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
-  .contact-line span{ font-family:'JetBrains Mono', monospace; font-size:13px; }
+  .contact-line span{ font-family:'JetBrains Mono', monospace; font-size:13px; min-width:0; overflow-wrap:anywhere; }
   .copy-btn{
     background:none;
     border:none;
@@ -225,17 +225,17 @@
       <span>FORWARD&nbsp;PLACE</span>
     </div>
     <h1>人生を取り戻す</h1>
-    <p class="lede">スマートフォン向け(iOS / Android)アプリケーションの企画・開発・運営を行っております。</p>
+    <p class="lede">スマートフォン向けアプリケーションの企画・開発・運営を行っております。</p>
     <div class="hairline"></div>
   </header>
 
   <section>
     <div class="eyebrow">開発中のプロダクト</div>
     <div class="product-head">
-      <h2>Anti-dopa</h2>
+      <h2>Anti-Dopa</h2>
       <span class="status">開発進行中</span>
     </div>
-    <p class="product-desc">スマホ依存を、利用者自身の忍耐力で解消する次世代アプリ。</p>
+    <p class="product-desc">開きかけたアプリの前に待機時間を挟み、無意識の利用を自分で止めるためのアプリ。</p>
     <div class="feature-rows">
       <div>アプリ利用制限機能</div>
       <div>利用振り返り機能</div>
@@ -248,7 +248,7 @@
     <div class="spec-row">
       <div>
         <div class="spec-label">自社サービス(アプリ内課金)</div>
-        <div class="spec-note">初回起動から14日間は無料でお試しいただけます。以降は月額プランの購読が必要です。</div>
+        <div class="spec-note">初回起動から14日間は無料でお試しいただけます。以降は月額プランの購読が必要です。購読は毎月自動で更新され、Google Play の「定期購入」からいつでも解約できます。お支払いは Google Play を通じて行われ、購読の手続き後すぐにご利用いただけます。</div>
       </div>
       <div class="spec-value">¥100<small>/ 月・税込</small></div>
     </div>
@@ -263,7 +263,7 @@
       </div>
       <div class="info-row">
         <dt>事業内容</dt>
-        <dd>iOS/Androidアプリケーションの企画・開発・運営</dd>
+        <dd>スマートフォン向けアプリケーションの企画・開発・運営</dd>
       </div>
       <div class="info-row">
         <dt>お問い合わせ</dt>
