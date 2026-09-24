@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anti-Dopa | Forward Place</title>
+<meta name="description" content="開きかけたアプリの前に待機時間を挟み、無意識の利用を自分で止めるためのアプリ「Anti-Dopa」。Forward Place が開発しています。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0d0f0e;
+    --line: rgba(238,236,228,0.14);
+    --line-strong: rgba(238,236,228,0.24);
+    --paper: #f7f6f1;
+    --paper-dim: #d6d4c9;
+    --paper-faint: #c2c0b6;
+    --accent: #d4af6e;
+    --accent-soft: rgba(212,175,110,0.18);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ background:var(--ink); }
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight:400;
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+    padding:56px 20px 56px;
+  }
+  .page{ max-width:640px; margin:0 auto; }
+
+  .back{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--paper-faint);
+    text-decoration:none;
+    margin-bottom:36px;
+  }
+  .back:hover{ color:var(--accent); }
+
+  .product-icon{
+    width:56px; height:56px;
+    border-radius:14px;
+    background:var(--accent-soft);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    margin-bottom:20px;
+  }
+  .product-icon img{ width:100%; height:100%; object-fit:cover; }
+
+  h1{
+    font-family:'Shippori Mincho', serif;
+    font-weight:800;
+    font-size:clamp(28px, 5vw, 36px);
+    letter-spacing:0.02em;
+    margin-bottom:14px;
+  }
+  .status{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    font-size:12px;
+    color:var(--accent);
+    letter-spacing:0.04em;
+    margin-bottom:22px;
+  }
+  .status::before{
+    content:'';
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  .lede{
+    max-width:46ch;
+    color:var(--paper-dim);
+    font-size:15px;
+    line-height:1.95;
+    margin-bottom:40px;
+  }
+
+  section{ padding:36px 0; border-top:1px solid var(--line); }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--paper-faint);
+    margin-bottom:20px;
+  }
+  .feature-rows{ display:flex; flex-direction:column; }
+  .feature-rows div{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 0;
+    border-top:1px solid var(--line);
+    font-size:14.5px;
+  }
+  .feature-rows div:last-child{ border-bottom:1px solid var(--line); }
+  .feature-rows div::before{
+    content:'';
+    width:12px; height:1px;
+    background:var(--accent);
+    flex-shrink:0;
+  }
+
+  .spec-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .spec-label{ font-size:14.5px; color:var(--paper); }
+  .spec-note{ font-size:12.5px; color:var(--paper-dim); margin-top:8px; line-height:1.8; }
+  .spec-value{
+    font-family:'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    font-size:26px;
+    color:var(--accent);
+    white-space:nowrap;
+  }
+  .spec-value small{
+    font-size:11.5px;
+    color:var(--paper-faint);
+    margin-left:4px;
+  }
+
+  footer{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px 18px;
+    margin-top:20px;
+    padding-top:32px;
+    border-top:1px solid var(--line);
+    color:var(--paper-faint);
+    font-size:11.5px;
+    letter-spacing:0.08em;
+  }
+  footer a{
+    color:var(--paper-dim);
+    text-underline-offset:3px;
+    text-decoration-color:var(--line-strong);
+  }
+  footer a:hover{ text-decoration-color:var(--accent); }
+  footer a:focus-visible{ outline:1px solid var(--accent); outline-offset:3px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back" href="/">&larr;&nbsp;Forward Place</a>
+
+  <div class="product-icon">
+    <img src="icon-anti-dopa.png" alt="">
+  </div>
+  <h1>Anti-Dopa</h1>
+  <span class="status">近日公開</span>
+  <p class="lede">開きかけたアプリの前に待機時間を挟み、無意識の利用を自分で止めるためのアプリ。</p>
+
+  <section>
+    <div class="eyebrow">できること</div>
+    <div class="feature-rows">
+      <div>アプリ利用制限機能</div>
+      <div>利用振り返り機能</div>
+      <div>利用時間表示機能</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">利用料金</div>
+    <div class="spec-row">
+      <div>
+        <div class="spec-label">自社サービス(アプリ内課金)</div>
+        <div class="spec-note">初回起動から14日間は無料でお試しいただけます。以降は月額プランの購読が必要です。購読は毎月自動で更新され、Google Play の「定期購入」からいつでも解約できます。お支払いは Google Play を通じて行われ、購読の手続き後すぐにご利用いただけます。</div>
+      </div>
+      <div class="spec-value">¥100<small>/ 月・税込</small></div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/">Forward Place トップへ</a>
+    <a href="/privacy.html">プライバシーポリシー</a>
+    <a href="/terms.html">利用規約</a>
+    <a href="/tokushoho.html">特定商取引法に基づく表記</a>
+  </footer>
+
+</div>
+</body>
+</html>
