@@ -4,247 +4,166 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Forward Place</title>
+<meta name="description" content="習慣を整えるアプリの企画・開発・運営を行う Forward Place のサイトです。スマホとの付き合い方を変えるアプリ「Anti-Dopa」を公開中。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink: #0d0f0e;
-    --panel: #14312e;
-    --line: rgba(238,236,228,0.10);
-    --line-strong: rgba(238,236,228,0.24);
-    --paper: #eeece4;
-    --paper-dim: #9d9b90;
-    --paper-faint: #636156;
-    --accent: #c9a15a;
-    --accent-soft: rgba(201,161,90,0.14);
+  :root {
+    --bg: #111214;
+    --card: #1A1C1F;
+    --line: #26282C;
+    --card-line: #2E3034;
+    --text: #F2F0EA;
+    --text-sub: #C9C6BE;
+    --text-body: #DAD7CF;
+    --text-muted: #9A978F;
+    --gold: #D9B45A;
+    --gold-hover: #F0CF7A;
   }
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ background:var(--ink); }
-  body{
-    background:var(--ink);
-    color:var(--paper);
-    font-family:'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight:300;
-    line-height:1.9;
-    -webkit-font-smoothing:antialiased;
-    padding:72px 20px 56px;
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  .page{ max-width:640px; margin:0 auto; }
+  a { color: var(--gold); }
+  a:hover { color: var(--gold-hover); }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .page { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* ---- header ---- */
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:46px;
+  header.top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 24px; border-bottom: 1px solid var(--line);
   }
-  .brand svg{ flex-shrink:0; }
-  .brand span{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11.5px;
-    letter-spacing:0.32em;
-    color:var(--paper-dim);
+  .brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 3px; color: var(--gold); }
+  header.top a { font-size: 14px; text-decoration: none; padding: 12px 0; }
+
+  .hero { padding: 56px 24px 40px; display: flex; flex-direction: column; gap: 16px; }
+  .hero h1 { margin: 0; font-size: 34px; line-height: 1.35; font-weight: 700; }
+  .hero p { margin: 0; font-size: 16px; line-height: 1.8; color: var(--text-sub); }
+
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 2px; color: var(--text-muted); }
+  .products { display: flex; flex-direction: column; gap: 16px; }
+  .products .eyebrow { padding: 0 24px; }
+  /* アプリの一覧。アプリが増えても並べられるよう、横に流せるようにする（端で1枚ずつ止まる）。 */
+  .product-row {
+    display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 0 24px 12px; scroll-padding: 0 24px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #3A3C40 transparent;
   }
-  h1{
-    font-family:'Shippori Mincho', serif;
-    font-weight:800;
-    font-size:clamp(28px, 5vw, 38px);
-    letter-spacing:0.02em;
-    line-height:1.55;
-    text-wrap:balance;
-    color:var(--paper);
-    margin-bottom:22px;
+  .product-row > * { flex: 0 0 min(320px, 85%); scroll-snap-align: start; }
+  .product-row::after { content: ""; flex: 0 0 8px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--card-line); border-radius: 8px;
+    padding: 24px; display: flex; flex-direction: column; gap: 20px;
   }
-  .lede{
-    max-width:44ch;
-    color:var(--paper-dim);
-    font-size:14.5px;
-    line-height:1.95;
-    margin-bottom:30px;
+  .card-head { display: flex; gap: 16px; align-items: center; }
+  .card-head img { width: 64px; height: 64px; border-radius: 14px; border: 1px solid #3A3C40; background: #000; display: block; }
+  .card-head .name { font-size: 22px; font-weight: 700; }
+  .card-head .status { font-size: 13px; color: var(--gold); margin-top: 4px; }
+  .card p { margin: 0; font-size: 16px; line-height: 1.8; color: var(--text-body); }
+  .features { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.6; color: var(--text-body); }
+  .features li::before { content: "・ "; }
+  .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; padding-top: 4px; }
+  .price .amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 300; }
+  .price .note { font-size: 14px; color: #B5B2AA; }
+  .cta {
+    display: flex; justify-content: center; align-items: center; height: 52px; border-radius: 8px;
+    background: var(--gold); color: var(--bg); font-size: 16px; font-weight: 700; text-decoration: none;
   }
-  .hairline{
-    height:1px;
-    background:linear-gradient(90deg, var(--accent) 0 56px, var(--line) 56px 100%);
+  .cta:hover { background: var(--gold-hover); color: var(--bg); }
+  .more { text-align: center; font-size: 14px; padding: 8px 0; }
+  .placeholder {
+    border: 1px dashed #3A3C40; border-radius: 8px; padding: 24px; font-size: 15px; color: #B5B2AA;
+    display: flex; align-items: center; justify-content: center; text-align: center; min-height: 160px;
   }
 
-  /* ---- sections ---- */
-  section{ padding:40px 0; border-bottom:1px solid var(--line); }
-  section:last-of-type{ border-bottom:none; }
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    color:var(--paper-faint);
-    margin-bottom:20px;
+  .about { padding: 56px 24px 0; display: flex; flex-direction: column; gap: 16px; }
+  .about dl { margin: 0; display: grid; grid-template-columns: 96px 1fr; row-gap: 14px; font-size: 15px; line-height: 1.6; }
+  .about dt { color: var(--text-muted); }
+  .about dd { margin: 0; min-width: 0; }
+  .contact-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; overflow-wrap: anywhere; }
+  .copy-btn {
+    font: inherit; font-size: 12px; color: var(--text-sub); background: transparent;
+    border: 1px solid #3A3C40; border-radius: 4px; padding: 6px 12px; cursor: pointer;
   }
+  .copy-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-  /* ---- product grid（複数プロダクトの一覧） ---- */
-  .product-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-  }
-  .product-card{
-    display:block;
-    background:rgba(255,255,255,0.04);
-    border:0.5px solid var(--line-strong);
-    border-radius:10px;
-    padding:18px 16px;
-    text-decoration:none;
-    color:inherit;
-    transition:border-color .2s ease;
-  }
-  a.product-card:hover{ border-color:var(--accent); }
-  .product-card .icon{
-    width:34px; height:34px;
-    border-radius:8px;
-    background:var(--accent-soft);
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
-    margin-bottom:12px;
-  }
-  .product-card .icon img{ width:100%; height:100%; object-fit:cover; }
-  .product-card .name{ font-weight:700; font-size:15px; margin-bottom:6px; color:var(--paper); }
-  .product-card .desc{ font-size:12.5px; color:var(--paper-dim); line-height:1.75; margin-bottom:12px; }
-  .product-card .badge{
-    display:inline-block;
-    font-size:10.5px;
-    font-weight:500;
-    padding:3px 10px;
-    border-radius:20px;
-    background:var(--accent-soft);
-    color:var(--accent);
-  }
-  .product-card.placeholder{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    border-style:dashed;
-    background:transparent;
-  }
-  .product-card.placeholder .icon{ background:rgba(238,236,228,0.06); color:var(--paper-faint); margin-bottom:10px; }
-  .product-card.placeholder .status-text{ font-size:12px; color:var(--paper-dim); font-weight:500; }
+  footer { margin-top: auto; padding: 32px 24px; border-top: 1px solid var(--line); font-size: 13px; color: #7D7A73; }
+  .about { margin-bottom: 56px; }
 
-  /* ---- info rows ---- */
-  .info-row{
-    display:grid;
-    grid-template-columns:120px 1fr;
-    gap:16px;
-    padding:16px 0;
-    border-top:1px solid var(--line);
-    font-size:13.5px;
+  @media (min-width: 720px) {
+    .hero { padding: 88px 24px 56px; }
+    .hero h1 { font-size: 44px; }
   }
-  .info-row:last-child{ border-bottom:1px solid var(--line); }
-  .info-row dt{ color:var(--paper-faint); font-weight:400; }
-  .info-row dd{ color:var(--paper); min-width:0; }
-  .contact-line{ display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
-  .contact-line span{ font-family:'JetBrains Mono', monospace; font-size:13px; min-width:0; overflow-wrap:anywhere; }
-  .copy-btn{
-    background:none;
-    border:none;
-    color:var(--accent);
-    font-family:'Noto Sans JP', sans-serif;
-    font-size:12px;
-    letter-spacing:0.02em;
-    cursor:pointer;
-    text-decoration:underline;
-    text-underline-offset:3px;
-    text-decoration-color:var(--accent-soft);
-    padding:0;
-    transition:text-decoration-color .2s ease, color .2s ease;
-  }
-  .copy-btn:hover{ text-decoration-color:var(--accent); }
-  .copy-btn:focus-visible{ outline:1px solid var(--accent); outline-offset:3px; }
-
-  footer{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:8px 18px;
-    margin-top:56px;
-    color:var(--paper-faint);
-    font-size:11.5px;
-    letter-spacing:0.08em;
-  }
-  footer .footer-brand{ display:flex; align-items:center; gap:10px; }
-  footer svg{ opacity:0.6; }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <header>
-    <div class="brand">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="9" stroke="#c9a15a" stroke-width="1.3"/>
-        <line x1="12" y1="12" x2="9" y2="7" stroke="#c9a15a" stroke-width="1.3" stroke-linecap="round"/>
-        <line x1="12" y1="12" x2="15.5" y2="6.5" stroke="#c9a15a" stroke-width="1.3" stroke-linecap="round"/>
-      </svg>
-      <span>FORWARD&nbsp;PLACE</span>
-    </div>
-    <h1>習慣を変えて、人生を前へ。</h1>
-    <p class="lede">習慣を整えるアプリケーションの企画・開発・運営を行う、Forward Place のサイトです。</p>
-    <div class="hairline"></div>
+  <header class="top">
+    <div class="brand">FORWARD PLACE</div>
+    <a href="#contact">お問い合わせ</a>
   </header>
 
-  <section>
-    <div class="eyebrow">プロダクト</div>
-    <div class="product-grid">
-      <a class="product-card" href="/anti-dopa.html">
-        <div class="icon"><img src="icon-anti-dopa.png" alt=""></div>
-        <div class="name">Anti-Dopa</div>
-        <div class="desc">開きかけたアプリの前に、ひと呼吸をつくるアプリ</div>
-        <span class="badge">近日公開</span>
-      </a>
-      <div class="product-card placeholder">
-        <div class="icon">…</div>
-        <div class="status-text">新しいプロダクトを開発中</div>
+  <section class="hero">
+    <h1>習慣を変えて、<br>人生を前へ。</h1>
+    <p>スマホに振り回されない毎日のための、小さなアプリをつくっています。</p>
+  </section>
+
+  <section class="products">
+    <div class="eyebrow">PRODUCT</div>
+    <div class="product-row">
+    <div class="card">
+      <div class="card-head">
+        <img src="icon-anti-dopa.png" alt="">
+        <div>
+          <div class="name">Anti-Dopa</div>
+          <div class="status">公開中 ・ Android</div>
+        </div>
       </div>
+      <p>開きかけたアプリの前に、ひと呼吸。待機時間をはさんで、無意識のスマホ利用を自分で止められます。</p>
+      <ul class="features">
+        <li>決めたアプリやサイトを開くと、待機画面が出る</li>
+        <li>使う理由を書いてから開く</li>
+        <li>使った時間を、先週と比べて振り返る</li>
+      </ul>
+      <div class="price">
+        <span class="amount">¥480</span>
+        <span class="note">/ 月（税込）・ 最初の14日間は無料</span>
+      </div>
+      <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">Google Play で入手</a>
+      <a class="more" href="/anti-dopa.html">くわしく見る</a>
+    </div>
+    <div class="placeholder">新しいアプリを開発中です。</div>
     </div>
   </section>
 
-  <section>
-    <div class="eyebrow">事業者情報</div>
+  <section class="about" id="contact">
+    <div class="eyebrow">ABOUT</div>
     <dl>
-      <div class="info-row">
-        <dt>運営</dt>
-        <dd>Forward Place</dd>
-      </div>
-      <div class="info-row">
-        <dt>事業内容</dt>
-        <dd>スマートフォン向けアプリケーションの企画・開発・運営</dd>
-      </div>
-      <div class="info-row">
-        <dt>お問い合わせ</dt>
-        <dd class="contact-line">
-          <span id="email-text">forwardplace.support@gmail.com</span>
-          <button class="copy-btn" onclick="copyEmail()">コピー</button>
-        </dd>
-      </div>
+      <dt>運営</dt><dd>Forward Place</dd>
+      <dt>事業内容</dt><dd>スマートフォン向けアプリの企画・開発・運営</dd>
+      <dt>連絡先</dt>
+      <dd class="contact-line">
+        <a id="email-text" href="mailto:forwardplace.support@gmail.com">forwardplace.support@gmail.com</a>
+        <button class="copy-btn" type="button" onclick="copyEmail(this)">コピー</button>
+      </dd>
     </dl>
   </section>
 
-  <footer>
-    <div class="footer-brand">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="9" stroke="#636156" stroke-width="1.4"/>
-        <line x1="12" y1="12" x2="9" y2="7" stroke="#636156" stroke-width="1.4" stroke-linecap="round"/>
-        <line x1="12" y1="12" x2="15.5" y2="6.5" stroke="#636156" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-      <span>Forward Place</span>
-    </div>
-  </footer>
+  <footer>© Forward Place</footer>
 
 </div>
 <script>
-  function copyEmail(){
-    const email = document.getElementById('email-text').innerText;
-    navigator.clipboard.writeText(email).then(()=>{
-      alert('メールアドレスをクリップボードにコピーしました!');
-    }).catch(err=>{
-      console.error('コピーに失敗しました', err);
-    });
+  function copyEmail(button) {
+    var text = document.getElementById('email-text').textContent;
+    var done = function () { button.textContent = 'コピーしました'; setTimeout(function () { button.textContent = 'コピー'; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
   }
 </script>
 </body>
