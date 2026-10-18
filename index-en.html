@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forward Place</title>
+<link rel="alternate" hreflang="ja" href="/">
+<link rel="alternate" hreflang="en" href="/index-en.html">
+<meta name="description" content="Forward Place makes apps for days when your phone doesn't run your life.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111214;
+    --card: #1A1C1F;
+    --line: #26282C;
+    --card-line: #2E3034;
+    --text: #F2F0EA;
+    --text-sub: #C9C6BE;
+    --text-body: #DAD7CF;
+    --text-muted: #9A978F;
+    --gold: #D9B45A;
+    --gold-hover: #F0CF7A;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); }
+  a:hover { color: var(--gold-hover); }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .page { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+
+  header.top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 24px; border-bottom: 1px solid var(--line);
+  }
+  .brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 3px; color: var(--gold); }
+  header.top a { font-size: 14px; text-decoration: none; padding: 12px 0; }
+  header.top nav { display: flex; gap: 20px; }
+
+  .hero { padding: 56px 24px 40px; display: flex; flex-direction: column; gap: 16px; }
+  .hero h1 { margin: 0; font-size: 34px; line-height: 1.35; font-weight: 700; }
+  .hero p { margin: 0; font-size: 16px; line-height: 1.8; color: var(--text-sub); }
+
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 2px; color: var(--text-muted); }
+  .products { display: flex; flex-direction: column; gap: 16px; }
+  .products .eyebrow { padding: 0 24px; }
+  /* App list. Scrolls sideways as more apps are added (snaps one card at a time). */
+  .product-row {
+    display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 0 24px 12px; scroll-padding: 0 24px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #3A3C40 transparent;
+  }
+  .product-row > * { flex: 0 0 min(320px, 85%); scroll-snap-align: start; }
+  .product-row::after { content: ""; flex: 0 0 8px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--card-line); border-radius: 8px;
+    padding: 24px; display: flex; flex-direction: column; gap: 20px;
+  }
+  .card-head { display: flex; gap: 16px; align-items: center; }
+  .card-head img { width: 64px; height: 64px; border-radius: 14px; border: 1px solid #3A3C40; background: #000; display: block; }
+  .card-head .name { font-size: 22px; font-weight: 700; }
+  .card-head .status { font-size: 13px; color: var(--gold); margin-top: 4px; }
+  .card p { margin: 0; font-size: 16px; line-height: 1.8; color: var(--text-body); }
+  .features { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.6; color: var(--text-body); }
+  .features li::before { content: "· "; }
+  .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; padding-top: 4px; }
+  .price .amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 300; }
+  .price .note { font-size: 14px; color: #B5B2AA; }
+  .cta {
+    display: flex; justify-content: center; align-items: center; height: 52px; border-radius: 8px;
+    background: var(--gold); color: var(--bg); font-size: 16px; font-weight: 700; text-decoration: none;
+  }
+  .cta:hover { background: var(--gold-hover); color: var(--bg); }
+  .card p.soon { font-size: 14px; color: #B5B2AA; line-height: 1.7; }
+  .more { text-align: center; font-size: 14px; padding: 8px 0; }
+  .placeholder {
+    border: 1px dashed #3A3C40; border-radius: 8px; padding: 24px; font-size: 15px; color: #B5B2AA;
+    display: flex; align-items: center; justify-content: center; text-align: center; min-height: 160px;
+  }
+
+  .about { padding: 56px 24px 0; display: flex; flex-direction: column; gap: 16px; }
+  .about dl { margin: 0; display: grid; grid-template-columns: 112px 1fr; row-gap: 14px; font-size: 15px; line-height: 1.6; }
+  .about dt { color: var(--text-muted); }
+  .about dd { margin: 0; min-width: 0; }
+  .contact-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; overflow-wrap: anywhere; }
+  .copy-btn {
+    font: inherit; font-size: 12px; color: var(--text-sub); background: transparent;
+    border: 1px solid #3A3C40; border-radius: 4px; padding: 6px 12px; cursor: pointer;
+  }
+  .copy-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { margin-top: auto; padding: 32px 24px; border-top: 1px solid var(--line); font-size: 13px; color: #7D7A73; }
+  .about { margin-bottom: 56px; }
+
+  @media (min-width: 720px) {
+    .hero { padding: 88px 24px 56px; }
+    .hero h1 { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div class="brand">FORWARD PLACE</div>
+    <nav>
+      <a href="#contact">Contact</a>
+      <a href="/" lang="ja" hreflang="ja">日本語</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Change your habits,<br>move your life forward.</h1>
+    <p>We make apps for days when your phone doesn't run your life.</p>
+  </section>
+
+  <section class="products">
+    <div class="eyebrow">PRODUCT</div>
+    <div class="product-row">
+    <div class="card">
+      <div class="card-head">
+        <img src="icon-anti-dopa.png" alt="">
+        <div>
+          <div class="name">Anti-Dopa</div>
+          <div class="status">Android</div>
+        </div>
+      </div>
+      <p>Take a breath before you open that app. A short wait helps you stop using your phone without thinking, by your own choice.</p>
+      <ul class="features">
+        <li>A wait screen appears when you open an app or website you chose</li>
+        <li>Write why you're opening it, then open it</li>
+        <li>Look back on your usage compared with last week</li>
+      </ul>
+      <!-- Before the overseas release. After it, replace with:
+      <div class="price">
+        <span class="amount">$3.99</span>
+        <span class="note">/ month in the US · local prices in Google Play · 14-day trial</span>
+      </div>
+      <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">Get it on Google Play</a>
+      -->
+      <p class="soon">Coming soon to the US, UK, Canada, Australia, and New Zealand. Available now in Japan.</p>
+      <a class="more" href="/anti-dopa-en.html">Learn more</a>
+    </div>
+    <div class="placeholder">More apps are on the way.</div>
+    </div>
+  </section>
+
+  <section class="about" id="contact">
+    <div class="eyebrow">ABOUT</div>
+    <dl>
+      <dt>Company</dt><dd>Forward Place</dd>
+      <dt>What we do</dt><dd>Planning, building, and running apps for smartphones</dd>
+      <dt>Contact</dt>
+      <dd class="contact-line">
+        <a id="email-text" href="mailto:forwardplace.support@gmail.com">forwardplace.support@gmail.com</a>
+        <button class="copy-btn" type="button" onclick="copyEmail(this)">Copy</button>
+      </dd>
+    </dl>
+  </section>
+
+  <footer>© Forward Place</footer>
+
+</div>
+<script>
+  function copyEmail(button) {
+    var text = document.getElementById('email-text').textContent;
+    var done = function () { button.textContent = 'Copied'; setTimeout(function () { button.textContent = 'Copy'; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
+  }
+</script>
+</body>
+</html>

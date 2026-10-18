@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Forward Place</title>
+<link rel="alternate" hreflang="ja" href="/">
+<link rel="alternate" hreflang="en" href="/index-en.html">
 <meta name="description" content="習慣を整えるアプリの企画・開発・運営を行う Forward Place のサイトです。スマホとの付き合い方を変えるアプリ「Anti-Dopa」を公開中。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +42,7 @@
   }
   .brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 3px; color: var(--gold); }
   header.top a { font-size: 14px; text-decoration: none; padding: 12px 0; }
+  header.top nav { display: flex; gap: 20px; }
 
   .hero { padding: 56px 24px 40px; display: flex; flex-direction: column; gap: 16px; }
   .hero h1 { margin: 0; font-size: 34px; line-height: 1.35; font-weight: 700; }
@@ -107,7 +110,10 @@
 
   <header class="top">
     <div class="brand">FORWARD PLACE</div>
-    <a href="#contact">お問い合わせ</a>
+    <nav>
+      <a href="#contact">お問い合わせ</a>
+      <a href="/index-en.html" lang="en" hreflang="en">English</a>
+    </nav>
   </header>
 
   <section class="hero">
