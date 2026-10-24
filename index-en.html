@@ -85,6 +85,15 @@
     display: flex; align-items: center; justify-content: center; text-align: center; min-height: 160px;
   }
 
+  .tools { padding: 40px 24px 0; display: flex; flex-direction: column; gap: 16px; }
+  .tool {
+    display: flex; flex-direction: column; gap: 6px; background: var(--card); border: 1px solid var(--card-line);
+    border-radius: 8px; padding: 20px 24px; text-decoration: none; color: var(--text);
+  }
+  .tool:hover { border-color: var(--gold); color: var(--text); }
+  .tool .name { font-size: 18px; font-weight: 700; color: var(--gold); }
+  .tool .desc { font-size: 15px; line-height: 1.7; color: var(--text-body); }
+
   .about { padding: 56px 24px 0; display: flex; flex-direction: column; gap: 16px; }
   .about dl { margin: 0; display: grid; grid-template-columns: 112px 1fr; row-gap: 14px; font-size: 15px; line-height: 1.6; }
   .about dt { color: var(--text-muted); }
@@ -147,6 +156,14 @@
     </div>
     <div class="placeholder">More apps are on the way.</div>
     </div>
+  </section>
+
+  <section class="tools">
+    <div class="eyebrow">TOOL</div>
+    <a class="tool" href="/life-timer-en.html">
+      <span class="name">Life Timer</span>
+      <span class="desc">See roughly how much of the rest of your life goes to your phone, and how much you could take back.</span>
+    </a>
   </section>
 
   <section class="about" id="contact">

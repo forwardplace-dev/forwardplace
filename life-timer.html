@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人生タイマー｜残りの人生とスマホの時間 | Forward Place</title>
+<meta name="description" content="年齢と1日のスマホ時間を入れると、残りの人生のうちスマホに使う時間と、取り戻せる時間の目安が分かります。">
+<link rel="alternate" hreflang="ja" href="/life-timer.html">
+<link rel="alternate" hreflang="en" href="/life-timer-en.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111214;
+    --card: #1A1C1F;
+    --line: #26282C;
+    --card-line: #2E3034;
+    --text: #F2F0EA;
+    --text-sub: #C9C6BE;
+    --text-body: #DAD7CF;
+    --text-muted: #9A978F;
+    --gold: #D9B45A;
+    --gold-hover: #F0CF7A;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); }
+  a:hover { color: var(--gold-hover); }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .page { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+
+  header.top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 24px; border-bottom: 1px solid var(--line);
+  }
+  .brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 3px; color: var(--gold); text-decoration: none; }
+  header.top .back { font-size: 14px; text-decoration: none; padding: 12px 0; }
+  header.top .nav { display: flex; gap: 20px; }
+
+  main { width: 100%; max-width: 560px; margin: 0 auto; padding: 32px 24px 56px; }
+  h1 { font-size: 26px; font-weight: 700; margin: 0 0 6px; }
+  .lead { color: var(--text-sub); font-size: 14px; margin: 0 0 28px; }
+  .bar { width: 40px; height: 3px; background: var(--gold); margin: 0 0 28px; }
+  .lab { display: block; font-size: 13px; color: var(--text-sub); letter-spacing: .1em; margin: 18px 0 8px; }
+  input[type=number] {
+    width: 100%; background: transparent; border: 1px solid #3A3C40; border-radius: 4px;
+    color: var(--text); font: inherit; font-size: 18px; padding: 10px 12px;
+  }
+  .seg { display: flex; gap: 8px; }
+  .seg button {
+    flex: 1; min-height: 44px; background: var(--card); border: 1px solid var(--card-line); border-radius: 4px;
+    color: var(--text-sub); font: inherit; font-size: 14px; padding: 10px; cursor: pointer;
+  }
+  .seg button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+  .range { display: flex; align-items: center; gap: 12px; }
+  input[type=range] { flex: 1; height: 32px; accent-color: var(--gold); }
+  .hv { font-size: 20px; min-width: 70px; text-align: right; }
+  .result { margin-top: 36px; text-align: center; }
+  .ring { width: 220px; height: 220px; max-width: 100%; margin: 0 auto; display: block; }
+  .big { font-size: 56px; font-weight: 300; line-height: 1; }
+  .unit { font-size: 16px; color: var(--text-sub); margin-left: 4px; }
+  .cap { font-size: 14px; color: var(--text-sub); margin-top: 6px; }
+  .empty { margin-top: 36px; text-align: center; font-size: 15px; color: var(--text-sub); }
+  .recover { margin-top: 30px; background: var(--card); border-radius: 8px; padding: 18px; }
+  .recover .t { font-size: 14px; color: var(--text-sub); }
+  .recover .n { font-size: 30px; color: var(--gold); font-weight: 300; margin: 4px 0; }
+  .recover .d { font-size: 13px; color: var(--text-sub); }
+  .cta {
+    display: block; margin-top: 28px; border-radius: 8px; padding: 14px; text-align: center;
+    background: var(--gold); color: var(--bg); font-weight: 700; text-decoration: none;
+  }
+  .cta:hover { background: var(--gold-hover); color: var(--bg); }
+  .cta small { display: block; font-weight: 400; color: #3A3320; font-size: 13px; line-height: 1.6; margin-top: 2px; }
+  .note { font-size: 13px; color: var(--text-muted); margin: 28px 0 0; line-height: 1.8; }
+
+  footer {
+    margin-top: auto; padding: 32px 24px; border-top: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 12px; font-size: 13px;
+  }
+  .legal { display: flex; flex-wrap: wrap; gap: 12px 16px; }
+  .copyright { color: #7D7A73; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <a class="brand" href="/">FORWARD PLACE</a>
+    <div class="nav">
+      <a class="back" href="/life-timer-en.html" lang="en" hreflang="en">English</a>
+      <a class="back" href="/">&larr;&nbsp;トップへ</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>人生タイマー</h1>
+    <p class="lead">年齢と1日のスマホ時間から、残りの人生のうちスマホに使う時間と、取り戻せる時間の目安を出します。入力した内容はどこにも送りません。</p>
+    <div class="bar"></div>
+
+    <label class="lab" for="age">いまの年齢</label>
+    <input type="number" id="age" min="10" max="90" value="30" inputmode="numeric">
+
+    <div class="lab" id="lSex">性別（平均余命の表に使います）</div>
+    <div class="seg" id="sex" role="group" aria-labelledby="lSex">
+      <button type="button" data-v="m" aria-pressed="false">男性</button>
+      <button type="button" data-v="f" aria-pressed="false">女性</button>
+      <button type="button" data-v="x" aria-pressed="true">答えない</button>
+    </div>
+
+    <label class="lab" for="hours">1日のスマホ時間</label>
+    <div class="range"><input type="range" id="hours" min="0.5" max="12" step="0.5" value="4"><output class="hv mono" id="hv" for="hours"></output></div>
+
+    <p class="empty" id="empty" hidden>10〜90歳の年齢を入れてください。</p>
+    <div class="result" id="result">
+      <svg class="ring" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#2E3034" stroke-width="6"/>
+        <circle id="arc" cx="50" cy="50" r="40" fill="none" stroke="#D9B45A" stroke-width="6" stroke-linecap="round" transform="rotate(-90 50 50)" stroke-dasharray="0 252"/>
+        <text id="pct" x="50" y="55" text-anchor="middle" fill="#F2F0EA" font-size="15" font-weight="300" font-family="'JetBrains Mono', monospace"></text>
+      </svg>
+      <div class="cap">起きている時間のうち、スマホに使う割合<span class="sr" id="pctSr"></span></div>
+      <div style="margin-top:22px"><span class="big mono" id="years"></span><span class="unit">年</span></div>
+      <div class="cap" id="yCap"></div>
+      <div class="recover">
+        <div class="t" id="bT">1日1時間だけ減らすと</div>
+        <div class="n mono" id="bN"></div>
+        <div class="d" id="bD"></div>
+      </div>
+    </div>
+
+    <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">開く前に、ひと呼吸。Anti-Dopa<small>SNSやショート動画を開く前に、理由を書いて少し待つアプリ（Android）</small></a>
+
+    <p class="note">残りの年数は、厚生労働省「<a href="https://www.mhlw.go.jp/toukei/saikin/hw/life/life25/dl/life25-02.pdf">令和7年簡易生命表</a>」の年齢ごとの平均余命（「答えない」は男女の平均）を使った統計上の目安です。あなたの寿命を予測するものではありません。健康や医療の判断には使わないでください。起きている時間は1日16時間として計算しています。</p>
+  </main>
+
+  <footer>
+    <div class="legal">
+      <a href="/privacy.html">プライバシーポリシー</a>
+      <a href="/terms.html">利用規約</a>
+      <a href="/tokushoho.html">特定商取引法に基づく表記</a>
+    </div>
+    <div class="copyright">© Forward Place</div>
+  </footer>
+
+</div>
+<script>
+// 令和7年簡易生命表（厚生労働省）表1 主な年齢の平均余命 [男, 女]。5歳刻みの間は直線でならす。
+// 毎年7月下旬に新しい生命表が出たら差し替える。
+const T={0:[81.35,87.33],5:[76.57,82.54],10:[71.60,77.56],15:[66.63,72.60],20:[61.72,67.67],25:[56.85,62.77],30:[51.98,57.85],35:[47.12,52.94],40:[42.29,48.05],45:[37.52,43.20],50:[32.82,38.41],55:[28.26,33.70],60:[23.86,29.07],65:[19.68,24.52],70:[15.78,20.10],75:[12.24,15.88],80:[9.10,11.95],85:[6.44,8.47],90:[4.38,5.66]};
+const AWAKE=16; // 起きている時間の目安（1日）
+let sex="x";
+const $=id=>document.getElementById(id);
+function remaining(age){
+  age=Math.max(0,Math.min(90,age));const lo=Math.floor(age/5)*5,hi=Math.min(90,lo+5),f=hi===lo?0:(age-lo)/(hi-lo);
+  const v=i=>T[lo][i]+(T[hi][i]-T[lo][i])*f;const m=v(0),w=v(1);return sex==="m"?m:sex==="f"?w:(m+w)/2;
+}
+function render(){
+  const h=+$("hours").value;
+  $("hv").textContent=`${h}時間`;$("hours").setAttribute("aria-valuetext",`${h}時間`);
+  const age=$("age").valueAsNumber,empty=!(Number.isFinite(age)&&age>=10&&age<=90);
+  $("empty").hidden=!empty;$("result").hidden=empty;
+  if(empty)return;
+  const R=remaining(age);
+  const share=Math.min(1,h/AWAKE);$("arc").setAttribute("stroke-dasharray",`${(share*251.3).toFixed(1)} 252`);
+  const pct=Math.round(share*100);$("pct").textContent=pct+"%";$("pctSr").textContent=`：${pct}%`;
+  $("years").textContent=(R*h/24).toFixed(1);
+  $("yCap").textContent=`このペースだと、残りの人生（約${Math.round(R)}年）のうち、これだけの時間をスマホに使います（24時間で換算）。`;
+  // 1時間未満しか使っていない人は、使っている分だけ取り戻せる
+  const cut=Math.min(1,h),back=Math.round(R*365.25*cut);
+  $("bT").textContent=cut<1?"スマホの時間をゼロにすると":"1日1時間だけ減らすと";
+  $("bN").textContent=`${(R*cut/24).toFixed(1)}年`;
+  $("bD").textContent=`残りの人生で、約${back.toLocaleString("ja-JP")}時間を取り戻せます。本なら約${Math.round(back/5).toLocaleString("ja-JP")}冊分（1冊5時間の目安）。`;
+}
+[...$("sex").children].forEach(b=>b.onclick=()=>{sex=b.dataset.v;[...$("sex").children].forEach(x=>x.setAttribute("aria-pressed",x===b));render();});
+["age","hours"].forEach(id=>$(id).addEventListener("input",render));
+render();
+</script>
+</body>
+</html>
