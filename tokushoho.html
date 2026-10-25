@@ -9,34 +9,36 @@
   body{
     margin:0;
     padding:32px 20px 56px;
-    background:#fff;
-    color:#222;
+    background:#111214;
+    color:#DAD7CF;
     font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;
     font-size:16px;
     line-height:1.9;
   }
   .page{ max-width:720px; margin:0 auto; }
-  .site{ font-size:14px; margin-bottom:28px; }
+  .site{ font-size:14px; margin-bottom:36px; display:flex; justify-content:space-between; align-items:center; }
   h1{ font-size:24px; line-height:1.5; margin:0 0 12px; }
   p{ margin:0 0 14px; }
-  .meta{ font-size:14px; color:#555; }
+  .meta{ font-size:14px; color:#9A978F; }
   table{ width:100%; border-collapse:collapse; margin:24px 0; }
   th, td{
     text-align:left;
     vertical-align:top;
     padding:14px 12px;
-    border-top:1px solid #ccc;
-    border-bottom:1px solid #ccc;
+    border-top:1px solid #2A2620;
+    border-bottom:1px solid #2A2620;
   }
-  th{ width:9em; font-weight:700; background:#f6f6f6; }
-  .note{ font-size:14px; color:#555; }
-  a{ color:#0645ad; }
+  th{ width:9em; font-weight:700; background:#17181B; }
+  .note{ font-size:14px; color:#9A978F; }
+  :root{ color-scheme:dark; }
+  a{ color:#D9B45A; }
+  a:hover{ color:#F0CF7A; }
+  h1, h2, strong, th{ color:#F2F0EA; }
   footer{
     margin-top:48px;
     padding-top:16px;
-    border-top:1px solid #ccc;
     font-size:13px;
-    color:#555;
+    color:#9A978F;
   }
   footer a{ margin-right:18px; }
   @media (max-width:560px){
@@ -44,12 +46,19 @@
     th{ border-bottom:none; padding-bottom:4px; }
     td{ border-top:none; padding-top:4px; }
   }
+
+  /* 文字ロゴ「FORWARD / PLACE →」（トップと同じ） */
+  .logo { display: inline-grid; color: #F2F0EA; text-decoration: none; font-family: 'IBM Plex Sans Condensed', 'DIN Condensed', 'Arial Narrow', sans-serif; font-size: 22px; line-height: 1.1; letter-spacing: .14em; }
+  .logo:hover { color: #F2F0EA; }
+  .logo > span:first-child { margin-right: -.14em; }
+  .logo .l2 { display: flex; justify-content: space-between; align-items: center; }
+  .logo svg { width: 12px; height: 13px; flex: none; }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <div class="site"><a href="/">Forward Place</a></div>
+  <div class="site"><a class="logo" href="/" aria-label="Forward Place"><span aria-hidden="true">FORWARD</span><span class="l2" aria-hidden="true">PLACE<svg viewBox="0 0 60 64"><path d="M2 32H58M30 2L59 32L30 62" fill="none" stroke="#D9B45A" stroke-width="8"/></svg></span></a></div>
 
   <h1>特定商取引法に基づく表記</h1>
   <p class="meta">対象: アプリ「Anti-Dopa」の有料プラン<br>最終更新日: 2026年10月3日</p>

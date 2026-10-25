@@ -9,7 +9,7 @@
 <link rel="alternate" hreflang="en" href="/life-timer-en.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@300;400&family=IBM+Plex+Sans+Condensed:wght@400&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #111214;
@@ -42,7 +42,7 @@
 
   header.top {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 20px 24px; border-bottom: 1px solid var(--line);
+    padding: 24px;
   }
   .brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 3px; color: var(--gold); text-decoration: none; }
   header.top .back { font-size: 14px; text-decoration: none; padding: 12px 0; }
@@ -80,18 +80,25 @@
   .note { font-size: 13px; color: var(--text-muted); margin: 28px 0 0; line-height: 1.8; }
 
   footer {
-    margin-top: auto; padding: 32px 24px; border-top: 1px solid var(--line);
+    margin-top: auto; padding: 32px 24px 48px;
     display: flex; flex-direction: column; gap: 12px; font-size: 13px;
   }
   .legal { display: flex; flex-wrap: wrap; gap: 12px 16px; }
   .copyright { color: #7D7A73; }
+
+  /* 文字ロゴ「FORWARD / PLACE →」（トップと同じ） */
+  .logo { display: inline-grid; color: #F2F0EA; text-decoration: none; font-family: 'IBM Plex Sans Condensed', 'DIN Condensed', 'Arial Narrow', sans-serif; font-size: 22px; line-height: 1.1; letter-spacing: .14em; }
+  .logo:hover { color: #F2F0EA; }
+  .logo > span:first-child { margin-right: -.14em; }
+  .logo .l2 { display: flex; justify-content: space-between; align-items: center; }
+  .logo svg { width: 12px; height: 13px; flex: none; }
 </style>
 </head>
 <body>
 <div class="page">
 
   <header class="top">
-    <a class="brand" href="/index-en.html">FORWARD PLACE</a>
+    <a class="logo" href="/index-en.html" aria-label="Forward Place"><span aria-hidden="true">FORWARD</span><span class="l2" aria-hidden="true">PLACE<svg viewBox="0 0 60 64"><path d="M2 32H58M30 2L59 32L30 62" fill="none" stroke="#D9B45A" stroke-width="8"/></svg></span></a>
     <div class="nav">
       <a class="back" href="/life-timer.html" lang="ja" hreflang="ja">日本語</a>
       <a class="back" href="/index-en.html">&larr;&nbsp;Home</a>
