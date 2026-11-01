@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Screen Time Calculator: Your Phone Time per Year and Over Your Lifetime | Forward Place</title>
+<meta name="description" content="Enter your daily phone time and see how many days it adds up to in a year, in 10 years and over the rest of your life, and what else that time could be. Nothing you enter leaves your device.">
+<link rel="alternate" hreflang="ja" href="https://forwardplace.jp/smartphone-time.html">
+<link rel="alternate" hreflang="en" href="https://forwardplace.jp/smartphone-time-en.html">
+<link rel="canonical" href="https://forwardplace.jp/smartphone-time-en.html">
+<style>
+  :root {
+    --bg: #111214; --card: #1A1C1F; --line: #26282C; --card-line: #2E3034;
+    --text: #F2F0EA; --text-sub: #C9C6BE; --text-body: #DAD7CF; --text-muted: #9A978F;
+    --gold: #D9B45A; --gold-hover: #F0CF7A;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  a { color: var(--gold); }
+  a:hover { color: var(--gold-hover); }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .mono { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace; }
+  .page { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+
+  header.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 24px; }
+  header.top .back { font-size: 14px; text-decoration: none; padding: 12px 0; }
+  header.top .nav { display: flex; gap: 20px; }
+  /* 文字ロゴ「FORWARD / PLACE →」（トップと同じ） */
+  .logo { display: inline-grid; color: #F2F0EA; text-decoration: none; font-family: 'IBM Plex Sans Condensed', 'DIN Condensed', 'Arial Narrow', sans-serif; font-size: 22px; line-height: 1.1; letter-spacing: .14em; }
+  .logo:hover { color: #F2F0EA; }
+  .logo > span:first-child { margin-right: -.14em; }
+  .logo .l2 { display: flex; justify-content: space-between; align-items: center; }
+  .logo svg { width: 12px; height: 13px; flex: none; }
+
+  main { width: 100%; max-width: 560px; margin: 0 auto; padding: 16px 24px 56px; }
+  h1 { font-size: 26px; font-weight: 700; margin: 0 0 6px; }
+  h2 { font-size: 18px; font-weight: 700; margin: 0 0 12px; }
+  .lead { color: var(--text-sub); font-size: 14px; margin: 0 0 28px; }
+  .bar { width: 40px; height: 3px; background: var(--gold); margin: 0 0 28px; }
+  .lab { display: block; font-size: 13px; color: var(--text-sub); margin: 18px 0 8px; }
+  .q { font-size: 16px; font-weight: 700; margin: 0 0 12px; }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .row label { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+  input[type=number], select {
+    background: transparent; border: 1px solid #3A3C40; border-radius: 4px; color: var(--text);
+    font: inherit; font-size: 18px; padding: 10px 12px; caret-color: var(--gold);
+  }
+  input[type=number] { width: 6em; }
+  select { min-width: 5.5em; }
+  select option { background: var(--card); color: var(--text); }
+  .hint { font-size: 13px; color: var(--text-muted); margin: 12px 0 0; }
+
+  section.block { margin-top: 36px; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .stat { background: var(--card); border-radius: 8px; padding: 16px 18px; }
+  .stat .k { font-size: 13px; color: var(--text-sub); }
+  .stat .v { font-size: 34px; font-weight: 300; line-height: 1.2; color: var(--text); overflow-wrap: anywhere; }
+  .stat .v .u { font-size: 15px; color: var(--text-sub); margin-left: 4px; font-family: inherit; }
+  .stat .s { font-size: 13px; color: var(--text-muted); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid2 .stat .v { font-size: 26px; }
+  .seg { display: flex; gap: 8px; }
+  .seg button { flex: 1; min-height: 44px; background: var(--card); border: 1px solid var(--card-line); border-radius: 4px; color: var(--text-sub); font: inherit; font-size: 14px; padding: 10px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+  .back-box { margin-top: 12px; background: var(--card); border-radius: 8px; padding: 18px; }
+  .back-box .n { font-size: 30px; color: var(--gold); font-weight: 300; overflow-wrap: anywhere; }
+  .note { font-size: 13px; color: var(--text-muted); margin: 12px 0 0; line-height: 1.8; }
+  .ref { background: var(--card); border-radius: 8px; padding: 16px 18px; font-size: 14px; color: var(--text-body); }
+  .ref p { margin: 0 0 8px; }
+  .ref .note { margin: 0; overflow-wrap: anywhere; }
+  dl.faq { margin: 0; }
+  dl.faq dt { font-weight: 700; margin-top: 16px; }
+  dl.faq dd { margin: 4px 0 0; color: var(--text-body); font-size: 15px; }
+  .links { display: grid; gap: 12px; }
+  .links a { display: block; background: var(--card); border-radius: 8px; padding: 16px 18px; text-decoration: none; color: var(--text); }
+  .links a b { color: var(--gold); }
+  .links a:hover { box-shadow: inset 0 0 0 1px var(--gold); color: var(--text); }
+  [hidden] { display: none !important; }
+
+  footer { margin-top: auto; padding: 32px 24px 48px; display: flex; flex-direction: column; gap: 12px; font-size: 13px; }
+  .legal { display: flex; flex-wrap: wrap; gap: 12px 16px; }
+  .copyright { color: var(--text-muted); }
+
+  @media (min-width: 560px) { .grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <a class="logo" href="/index-en.html" aria-label="Forward Place"><span aria-hidden="true">FORWARD</span><span class="l2" aria-hidden="true">PLACE<svg viewBox="0 0 60 64"><path d="M2 32H58M30 2L59 32L30 62" fill="none" stroke="#D9B45A" stroke-width="8"/></svg></span></a>
+    <div class="nav">
+      <a class="back" href="/smartphone-time.html" lang="ja" hreflang="ja">日本語</a>
+      <a class="back" href="/index-en.html">&larr;&nbsp;Home</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Screen Time Calculator</h1>
+    <p class="lead">See how much your daily phone time adds up to in a year, in 10 years and over the rest of your life. Nothing you enter is sent or saved.</p>
+    <div class="bar"></div>
+
+    <section>
+      <p class="q" id="qLab">How much time do you spend on your phone each day?</p>
+      <div class="row" role="group" aria-labelledby="qLab">
+        <label><select id="h"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option></select>h</label>
+        <label><select id="m"><option value="0" selected>0</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select>min</label>
+      </div>
+      <p class="hint">Not sure? On Android, check Settings → Digital Wellbeing &amp; parental controls. On iPhone, check Settings → Screen Time.</p>
+    </section>
+
+    <section class="block">
+      <h2>Results</h2>
+      <div class="grid" aria-live="polite">
+        <div class="stat"><div class="k">In a year</div><div class="v mono" id="year"></div><div class="s" id="yearH"></div></div>
+        <div class="stat"><div class="k">In 10 years</div><div class="v mono" id="ten"></div></div>
+        <div class="stat"><div class="k">Of your waking hours</div><div class="v mono" id="wake"></div><div class="s" id="wakeS"></div></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>What that time could be (1 year)</h2>
+      <div class="grid2">
+        <div class="stat"><div class="k">Books</div><div class="v mono" id="books"></div></div>
+        <div class="stat"><div class="k">Movies</div><div class="v mono" id="movies"></div></div>
+        <div class="stat"><div class="k">8-hour workdays</div><div class="v mono" id="work"></div></div>
+        <div class="stat"><div class="k">One-hour runs</div><div class="v mono" id="runs"></div></div>
+      </div>
+      <p class="note">Based on 5 hours per book and 2 hours per movie.</p>
+    </section>
+
+    <section class="block">
+      <h2 id="cutH"></h2>
+      <div class="seg" id="cut" role="group" aria-label="Time to cut">
+        <button type="button" data-v="15" aria-pressed="false">15min</button>
+        <button type="button" data-v="30" aria-pressed="true">30min</button>
+        <button type="button" data-v="60" aria-pressed="false">60min</button>
+      </div>
+      <div class="back-box" role="status"><div class="n" id="cutRes"></div><p class="note" id="cutNote" hidden></p></div>
+    </section>
+
+    <section class="block">
+      <h2>See it over the rest of your life</h2>
+      <p class="lead">Enter your age to see how much of your remaining years goes to your phone.</p>
+      <label class="lab" for="age">Your age</label>
+      <input type="number" id="age" min="10" max="95" inputmode="numeric" aria-describedby="ageBad">
+      <label class="lab" for="life">Expected lifespan (years)</label>
+      <input type="number" id="life" min="60" max="110" value="80" inputmode="numeric" aria-describedby="ageBad">
+      <p class="hint" id="ageBad" role="status" hidden>Enter an age from 10 to 95 that is lower than the lifespan (60 to 110).</p>
+      <div class="grid" id="lifeRes" aria-live="polite" hidden style="margin-top:16px">
+        <div class="stat"><div class="k">Remaining years</div><div class="v mono" id="rem"></div></div>
+        <div class="stat"><div class="k">Of that, time on your phone</div><div class="v mono" id="lifePhone"></div></div>
+        <div class="stat"><div class="k" id="lifeBackK"></div><div class="v mono" id="lifeBack" style="color:var(--gold)"></div></div>
+      </div>
+      <p class="note">This is a rough estimate, not a prediction of your lifespan. The default lifespan of 80 years is a simple assumption you can change. Do not use it for health or medical decisions.</p>
+    </section>
+
+    <section class="block">
+      <h2>FAQ</h2>
+      <dl class="faq">
+        <dt>How is this calculated?</dt><dd>Daily time × 365 days ÷ 24 hours gives the number of days per year.</dd>
+        <dt>Is what I enter sent anywhere?</dt><dd>No. Everything is calculated on this page only.</dd>
+        <dt>Where can I find my screen time?</dt><dd>On Android: Settings → Digital Wellbeing &amp; parental controls. On iPhone: Settings → Screen Time.</dd>
+        <dt>How are the remaining years worked out?</dt><dd>Your expected lifespan minus your age. The lifespan starts at 80 and you can change it. It is a rough estimate, not a prediction.</dd>
+      </dl>
+    </section>
+
+    <section class="block links">
+      <a href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">A pause before you open → <b>Anti-Dopa (Android)</b></a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="legal">
+      <a href="/privacy-en.html">Privacy Policy</a>
+      <a href="/terms-en.html">Terms of Use</a>
+    </div>
+    <div class="copyright">© Forward Place</div>
+  </footer>
+
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const L = {"lang":"en","yearsU":"years","wakeS":"Based on 16 waking hours a day","cutNone":"There is no time to cut.","daysU":"days","booksU":"","moviesU":"","workU":"","runsU":"","loc":"en-US"};
+const fmt = n => n.toLocaleString(L.loc, { maximumFractionDigits: 0 });
+const fmt1 = n => n.toLocaleString(L.loc, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const u = s => s ? `<span class="u">${s}</span>` : '';
+const hoursText = h => `${h} hours`;
+const tenText = (y, m) => !y ? ['', '', m, m === 1 ? 'month' : 'months'] : m ? [y, y === 1 ? 'year' : 'years', m, m === 1 ? 'month' : 'months'] : [y, y === 1 ? 'year' : 'years', '', ''];
+const cutHead = m => `If you cut ${m} minutes a day`;
+const cutText = (d, b) => `You get back <span class="mono">${d}</span> days a year (<span class="mono">${b}</span> books)`;
+const cutMax = m => `You use ${m} minutes a day, so this uses ${m} minutes.`;
+const remText = y => `about ${y} years`;
+const lifeBackHead = m => `Cut ${m} minutes a day and you get back`;
+// 令和7年簡易生命表（厚生労働省）表1 主な年齢の平均余命 [男, 女]。5歳刻みの間は直線でならす。毎年7月下旬に差し替える。
+const T={0:[81.35,87.33],5:[76.57,82.54],10:[71.60,77.56],15:[66.63,72.60],20:[61.72,67.67],25:[56.85,62.77],30:[51.98,57.85],35:[47.12,52.94],40:[42.29,48.05],45:[37.52,43.20],50:[32.82,38.41],55:[28.26,33.70],60:[23.86,29.07],65:[19.68,24.52],70:[15.78,20.10],75:[12.24,15.88],80:[9.10,11.95],85:[6.44,8.47],90:[4.38,5.66]};
+let sex = "x";
+function remaining(age) {
+  if (L.lang === "en") return $("life").valueAsNumber - age;
+  const lo = Math.floor(age / 5) * 5, hi = Math.min(90, lo + 5), f = hi === lo ? 0 : (age - lo) / (hi - lo);
+  const v = i => T[lo][i] + (T[hi][i] - T[lo][i]) * f, m = v(0), w = v(1);
+  return sex === "m" ? m : sex === "f" ? w : (m + w) / 2;
+}
+$("wakeS").textContent = L.wakeS;
+let cut = 30;
+function render() {
+  const h = +$("h").value + +$("m").value / 60;          // hours a day
+  const yearH = h * 365;
+  $("year").innerHTML = fmt1(yearH / 24) + u(L.daysU);
+  $("yearH").textContent = hoursText(fmt(yearH));
+  const tenMonths = Math.round(h * 3650 / 24 / 365 * 12);
+  const [y, yu, m, mu] = tenText(Math.floor(tenMonths / 12), tenMonths % 12);
+  $("ten").innerHTML = (y === "" ? "" : y + u(yu)) + (y !== "" && m !== "" ? " " : "") + (m === "" ? "" : m + u(mu));
+  $("wake").innerHTML = Math.round(Math.min(1, h / 16) * 100) + u("%");
+  $("books").innerHTML = fmt(yearH / 5) + u(L.booksU);
+  $("movies").innerHTML = fmt(yearH / 2) + u(L.moviesU);
+  $("work").innerHTML = fmt(yearH / 8) + u(L.workU);
+  $("runs").innerHTML = fmt(yearH) + u(L.runsU);
+  const c = Math.min(cut / 60, h);                        // can't cut more than is used
+  $("cutH").textContent = cutHead(cut);
+  $("cutRes").hidden = h === 0;
+  $("cutRes").innerHTML = cutText(fmt1(c * 365 / 24), fmt(c * 365 / 5));
+  $("cutNote").hidden = !(h === 0 || c < cut / 60);
+  $("cutNote").textContent = h === 0 ? L.cutNone : cutMax(Math.round(h * 60));
+  // rest of life
+  const ageRaw = $("age").value.trim(), age = Math.floor($("age").valueAsNumber);
+  const life = L.lang === "en" ? $("life").valueAsNumber : 0;
+  const lifeOk = L.lang !== "en" || (Number.isFinite(life) && life >= 60 && life <= 110);
+  const ok = Number.isFinite(age) && age >= 10 && age <= +$("age").max && lifeOk && remaining(age) > 0;
+  $("lifeRes").hidden = !ok;
+  $("ageBad").hidden = ok || ageRaw === "";
+  if (ok) {
+    const R = remaining(age);
+    $("rem").textContent = remText(Math.round(R));
+    $("lifePhone").innerHTML = fmt1(R * h / 24) + u(L.yearsU);
+    $("lifeBackK").textContent = lifeBackHead(Math.round(c * 60));   // what is actually counted
+    $("lifeBack").innerHTML = fmt1(R * c / 24) + u(L.yearsU);
+  }
+}
+[...$("cut").children].forEach(b => b.onclick = () => {
+  cut = +b.dataset.v;
+  [...$("cut").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+  render();
+});
+if ($("sex")) [...$("sex").children].forEach(b => b.onclick = () => {
+  sex = b.dataset.v;
+  [...$("sex").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+  render();
+});
+["h", "m", "age", "life"].forEach(id => $(id) && $(id).addEventListener("input", render));
+render();
+</script>
+</body>
+</html>

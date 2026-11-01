@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スマホ時間 計算｜1年・10年・残りの人生で何日分？ | Forward Place</title>
+<meta name="description" content="1日のスマホ時間を入れると、1年・10年・残りの人生で何日分になるか、本や映画にすると何本分かをすぐ計算します。入力はどこにも送りません。">
+<link rel="alternate" hreflang="ja" href="https://forwardplace.jp/smartphone-time.html">
+<link rel="alternate" hreflang="en" href="https://forwardplace.jp/smartphone-time-en.html">
+<link rel="canonical" href="https://forwardplace.jp/smartphone-time.html">
+<style>
+  :root {
+    --bg: #111214; --card: #1A1C1F; --line: #26282C; --card-line: #2E3034;
+    --text: #F2F0EA; --text-sub: #C9C6BE; --text-body: #DAD7CF; --text-muted: #9A978F;
+    --gold: #D9B45A; --gold-hover: #F0CF7A;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  a { color: var(--gold); }
+  a:hover { color: var(--gold-hover); }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .mono { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace; }
+  .page { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+
+  header.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 24px; }
+  header.top .back { font-size: 14px; text-decoration: none; padding: 12px 0; }
+  header.top .nav { display: flex; gap: 20px; }
+  /* 文字ロゴ「FORWARD / PLACE →」（トップと同じ） */
+  .logo { display: inline-grid; color: #F2F0EA; text-decoration: none; font-family: 'IBM Plex Sans Condensed', 'DIN Condensed', 'Arial Narrow', sans-serif; font-size: 22px; line-height: 1.1; letter-spacing: .14em; }
+  .logo:hover { color: #F2F0EA; }
+  .logo > span:first-child { margin-right: -.14em; }
+  .logo .l2 { display: flex; justify-content: space-between; align-items: center; }
+  .logo svg { width: 12px; height: 13px; flex: none; }
+
+  main { width: 100%; max-width: 560px; margin: 0 auto; padding: 16px 24px 56px; }
+  h1 { font-size: 26px; font-weight: 700; margin: 0 0 6px; }
+  h2 { font-size: 18px; font-weight: 700; margin: 0 0 12px; }
+  .lead { color: var(--text-sub); font-size: 14px; margin: 0 0 28px; }
+  .bar { width: 40px; height: 3px; background: var(--gold); margin: 0 0 28px; }
+  .lab { display: block; font-size: 13px; color: var(--text-sub); margin: 18px 0 8px; }
+  .q { font-size: 16px; font-weight: 700; margin: 0 0 12px; }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .row label { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+  input[type=number], select {
+    background: transparent; border: 1px solid #3A3C40; border-radius: 4px; color: var(--text);
+    font: inherit; font-size: 18px; padding: 10px 12px; caret-color: var(--gold);
+  }
+  input[type=number] { width: 6em; }
+  select { min-width: 5.5em; }
+  select option { background: var(--card); color: var(--text); }
+  .hint { font-size: 13px; color: var(--text-muted); margin: 12px 0 0; }
+
+  section.block { margin-top: 36px; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .stat { background: var(--card); border-radius: 8px; padding: 16px 18px; }
+  .stat .k { font-size: 13px; color: var(--text-sub); }
+  .stat .v { font-size: 34px; font-weight: 300; line-height: 1.2; color: var(--text); overflow-wrap: anywhere; }
+  .stat .v .u { font-size: 15px; color: var(--text-sub); margin-left: 4px; font-family: inherit; }
+  .stat .s { font-size: 13px; color: var(--text-muted); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid2 .stat .v { font-size: 26px; }
+  .seg { display: flex; gap: 8px; }
+  .seg button { flex: 1; min-height: 44px; background: var(--card); border: 1px solid var(--card-line); border-radius: 4px; color: var(--text-sub); font: inherit; font-size: 14px; padding: 10px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+  .back-box { margin-top: 12px; background: var(--card); border-radius: 8px; padding: 18px; }
+  .back-box .n { font-size: 30px; color: var(--gold); font-weight: 300; overflow-wrap: anywhere; }
+  .note { font-size: 13px; color: var(--text-muted); margin: 12px 0 0; line-height: 1.8; }
+  .ref { background: var(--card); border-radius: 8px; padding: 16px 18px; font-size: 14px; color: var(--text-body); }
+  .ref p { margin: 0 0 8px; }
+  .ref .note { margin: 0; overflow-wrap: anywhere; }
+  dl.faq { margin: 0; }
+  dl.faq dt { font-weight: 700; margin-top: 16px; }
+  dl.faq dd { margin: 4px 0 0; color: var(--text-body); font-size: 15px; }
+  .links { display: grid; gap: 12px; }
+  .links a { display: block; background: var(--card); border-radius: 8px; padding: 16px 18px; text-decoration: none; color: var(--text); }
+  .links a b { color: var(--gold); }
+  .links a:hover { box-shadow: inset 0 0 0 1px var(--gold); color: var(--text); }
+  [hidden] { display: none !important; }
+
+  footer { margin-top: auto; padding: 32px 24px 48px; display: flex; flex-direction: column; gap: 12px; font-size: 13px; }
+  .legal { display: flex; flex-wrap: wrap; gap: 12px 16px; }
+  .copyright { color: var(--text-muted); }
+
+  @media (min-width: 560px) { .grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <a class="logo" href="/" aria-label="Forward Place"><span aria-hidden="true">FORWARD</span><span class="l2" aria-hidden="true">PLACE<svg viewBox="0 0 60 64"><path d="M2 32H58M30 2L59 32L30 62" fill="none" stroke="#D9B45A" stroke-width="8"/></svg></span></a>
+    <div class="nav">
+      <a class="back" href="/smartphone-time-en.html" lang="en" hreflang="en">English</a>
+      <a class="back" href="/">&larr;&nbsp;トップへ</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>スマホ時間 計算</h1>
+    <p class="lead">1日のスマホ時間から、1年・10年・残りの人生で何日分になるかを計算します。入力はどこにも送らず、保存もしません。</p>
+    <div class="bar"></div>
+
+    <section>
+      <p class="q" id="qLab">1日、スマホを何時間使っていますか？</p>
+      <div class="row" role="group" aria-labelledby="qLab">
+        <label><select id="h"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option></select>時間</label>
+        <label><select id="m"><option value="0" selected>0</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select>分</label>
+      </div>
+      <p class="hint">分からなければ、Android は「設定 → Digital Wellbeing と保護者による使用制限」、iPhone は「設定 → スクリーンタイム」で確かめられます。</p>
+    </section>
+
+    <section class="block">
+      <h2>結果</h2>
+      <div class="grid" aria-live="polite">
+        <div class="stat"><div class="k">1年で</div><div class="v mono" id="year"></div><div class="s" id="yearH"></div></div>
+        <div class="stat"><div class="k">10年で</div><div class="v mono" id="ten"></div></div>
+        <div class="stat"><div class="k">起きている時間の</div><div class="v mono" id="wake"></div><div class="s" id="wakeS"></div></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>その時間があったら（1年分）</h2>
+      <div class="grid2">
+        <div class="stat"><div class="k">本</div><div class="v mono" id="books"></div></div>
+        <div class="stat"><div class="k">映画</div><div class="v mono" id="movies"></div></div>
+        <div class="stat"><div class="k">8時間の仕事</div><div class="v mono" id="work"></div></div>
+        <div class="stat"><div class="k">1時間のランニング</div><div class="v mono" id="runs"></div></div>
+      </div>
+      <p class="note">本1冊5時間・映画1本2時間として計算しています。</p>
+    </section>
+
+    <section class="block">
+      <h2 id="cutH"></h2>
+      <div class="seg" id="cut" role="group" aria-label="減らす時間">
+        <button type="button" data-v="15" aria-pressed="false">15分</button>
+        <button type="button" data-v="30" aria-pressed="true">30分</button>
+        <button type="button" data-v="60" aria-pressed="false">60分</button>
+      </div>
+      <div class="back-box" role="status"><div class="n" id="cutRes"></div><p class="note" id="cutNote" hidden></p></div>
+    </section>
+
+    <section class="block">
+      <h2>残りの人生で見る</h2>
+      <p class="lead">年齢と性別を入れると、残りの人生（あと何年）のうち、スマホに使う時間を出します。</p>
+      <label class="lab" for="age">いまの年齢</label>
+      <input type="number" id="age" min="10" max="90" inputmode="numeric" aria-describedby="ageBad">
+      <div class="lab" id="lSex">性別（平均余命の表に使います）</div>
+      <div class="seg" id="sex" role="group" aria-labelledby="lSex">
+        <button type="button" data-v="m" aria-pressed="false">男性</button>
+        <button type="button" data-v="f" aria-pressed="false">女性</button>
+        <button type="button" data-v="x" aria-pressed="true">答えない</button>
+      </div>
+      <p class="hint" id="ageBad" role="status" hidden>10〜90 の数字を入れてください。</p>
+      <div class="grid" id="lifeRes" aria-live="polite" hidden style="margin-top:16px">
+        <div class="stat"><div class="k">残りの人生</div><div class="v mono" id="rem"></div></div>
+        <div class="stat"><div class="k">そのうちスマホに使う時間</div><div class="v mono" id="lifePhone"></div></div>
+        <div class="stat"><div class="k" id="lifeBackK"></div><div class="v mono" id="lifeBack" style="color:var(--gold)"></div></div>
+      </div>
+      <p class="note">残りの年数は、厚生労働省「<a href="https://www.mhlw.go.jp/toukei/saikin/hw/life/life25/dl/life25-02.pdf">令和7年簡易生命表</a>」の年齢ごとの平均余命（「答えない」は男女の平均）を使った統計上の目安です。寿命を予測するものではありません。健康や医療の判断には使わないでください。</p>
+    </section>
+
+    <section class="block">
+      <h2>参考の数字</h2>
+      <div class="ref"><p>日本の13〜79歳のインターネット利用は、平日1日平均 <span class="mono">181.8</span>分（約3時間）。</p><p class="note">スマホだけでなく、パソコンなどを含むインターネット全体の時間です。出典：総務省「<a href="https://www.soumu.go.jp/menu_news/s-news/01iicp01_02000125.html">令和6年度 情報通信メディアの利用時間と情報行動に関する調査報告書</a>」（2025年6月27日公表）</p></div>
+    </section>
+
+    <section class="block">
+      <h2>よくある質問</h2>
+      <dl class="faq">
+        <dt>計算のしかたは？</dt><dd>1日の時間 × 365日 ÷ 24時間 で、1年に何日分かを出しています。</dd>
+        <dt>入力した数字はどこかに送られますか？</dt><dd>送られません。計算はこの画面の中だけで行います。</dd>
+        <dt>自分のスマホ時間はどこで分かりますか？</dt><dd>Android は「設定 → Digital Wellbeing と保護者による使用制限」、iPhone は「設定 → スクリーンタイム」です。</dd>
+        <dt>残りの人生の年数はどう出していますか？</dt><dd>厚生労働省「令和7年簡易生命表」の、年齢と性別ごとの平均余命を使っています。統計上の目安で、寿命の予測ではありません。</dd>
+      </dl>
+    </section>
+
+    <section class="block links">
+      <a href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">開く前に、ひと呼吸。 → <b>Anti-Dopa（Android）</b></a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="legal">
+      <a href="/privacy.html">プライバシーポリシー</a>
+      <a href="/terms.html">利用規約</a>
+      <a href="/tokushoho.html">特定商取引法に基づく表記</a>
+    </div>
+    <div class="copyright">© Forward Place</div>
+  </footer>
+
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const L = {"lang":"ja","yearsU":"年分","wakeS":"1日16時間起きているとして計算","cutNone":"減らす時間がありません。","daysU":"日分","booksU":"冊","moviesU":"本","workU":"日分","runsU":"回","loc":"ja-JP"};
+const fmt = n => n.toLocaleString(L.loc, { maximumFractionDigits: 0 });
+const fmt1 = n => n.toLocaleString(L.loc, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const u = s => s ? `<span class="u">${s}</span>` : '';
+const hoursText = h => `${h}時間`;
+const tenText = (y, m) => !y ? ['', '', m, 'か月分'] : m ? [y, '年', m, 'か月分'] : [y, '年分', '', ''];
+const cutHead = m => `1日 ${m}分 減らしたら`;
+const cutText = (d, b) => `1年で <span class="mono">${d}</span>日分 戻ってきます（本 <span class="mono">${b}</span>冊分）`;
+const cutMax = m => `今の使用時間が${m}分のため、${m}分で計算しています。`;
+const remText = y => `約${y}年`;
+const lifeBackHead = m => `1日${m}分減らすと、取り戻せる時間`;
+// 令和7年簡易生命表（厚生労働省）表1 主な年齢の平均余命 [男, 女]。5歳刻みの間は直線でならす。毎年7月下旬に差し替える。
+const T={0:[81.35,87.33],5:[76.57,82.54],10:[71.60,77.56],15:[66.63,72.60],20:[61.72,67.67],25:[56.85,62.77],30:[51.98,57.85],35:[47.12,52.94],40:[42.29,48.05],45:[37.52,43.20],50:[32.82,38.41],55:[28.26,33.70],60:[23.86,29.07],65:[19.68,24.52],70:[15.78,20.10],75:[12.24,15.88],80:[9.10,11.95],85:[6.44,8.47],90:[4.38,5.66]};
+let sex = "x";
+function remaining(age) {
+  if (L.lang === "en") return $("life").valueAsNumber - age;
+  const lo = Math.floor(age / 5) * 5, hi = Math.min(90, lo + 5), f = hi === lo ? 0 : (age - lo) / (hi - lo);
+  const v = i => T[lo][i] + (T[hi][i] - T[lo][i]) * f, m = v(0), w = v(1);
+  return sex === "m" ? m : sex === "f" ? w : (m + w) / 2;
+}
+$("wakeS").textContent = L.wakeS;
+let cut = 30;
+function render() {
+  const h = +$("h").value + +$("m").value / 60;          // hours a day
+  const yearH = h * 365;
+  $("year").innerHTML = fmt1(yearH / 24) + u(L.daysU);
+  $("yearH").textContent = hoursText(fmt(yearH));
+  const tenMonths = Math.round(h * 3650 / 24 / 365 * 12);
+  const [y, yu, m, mu] = tenText(Math.floor(tenMonths / 12), tenMonths % 12);
+  $("ten").innerHTML = (y === "" ? "" : y + u(yu)) + (y !== "" && m !== "" ? " " : "") + (m === "" ? "" : m + u(mu));
+  $("wake").innerHTML = Math.round(Math.min(1, h / 16) * 100) + u("%");
+  $("books").innerHTML = fmt(yearH / 5) + u(L.booksU);
+  $("movies").innerHTML = fmt(yearH / 2) + u(L.moviesU);
+  $("work").innerHTML = fmt(yearH / 8) + u(L.workU);
+  $("runs").innerHTML = fmt(yearH) + u(L.runsU);
+  const c = Math.min(cut / 60, h);                        // can't cut more than is used
+  $("cutH").textContent = cutHead(cut);
+  $("cutRes").hidden = h === 0;
+  $("cutRes").innerHTML = cutText(fmt1(c * 365 / 24), fmt(c * 365 / 5));
+  $("cutNote").hidden = !(h === 0 || c < cut / 60);
+  $("cutNote").textContent = h === 0 ? L.cutNone : cutMax(Math.round(h * 60));
+  // rest of life
+  const ageRaw = $("age").value.trim(), age = Math.floor($("age").valueAsNumber);
+  const life = L.lang === "en" ? $("life").valueAsNumber : 0;
+  const lifeOk = L.lang !== "en" || (Number.isFinite(life) && life >= 60 && life <= 110);
+  const ok = Number.isFinite(age) && age >= 10 && age <= +$("age").max && lifeOk && remaining(age) > 0;
+  $("lifeRes").hidden = !ok;
+  $("ageBad").hidden = ok || ageRaw === "";
+  if (ok) {
+    const R = remaining(age);
+    $("rem").textContent = remText(Math.round(R));
+    $("lifePhone").innerHTML = fmt1(R * h / 24) + u(L.yearsU);
+    $("lifeBackK").textContent = lifeBackHead(Math.round(c * 60));   // what is actually counted
+    $("lifeBack").innerHTML = fmt1(R * c / 24) + u(L.yearsU);
+  }
+}
+[...$("cut").children].forEach(b => b.onclick = () => {
+  cut = +b.dataset.v;
+  [...$("cut").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+  render();
+});
+if ($("sex")) [...$("sex").children].forEach(b => b.onclick = () => {
+  sex = b.dataset.v;
+  [...$("sex").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+  render();
+});
+["h", "m", "age", "life"].forEach(id => $(id) && $(id).addEventListener("input", render));
+render();
+</script>
+</body>
+</html>
