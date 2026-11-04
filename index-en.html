@@ -62,6 +62,10 @@
   .features { margin: 0 0 24px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.6; color: var(--text-sub); }
   .features li { padding-left: 16px; position: relative; }
   .features li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+  /* 料金：基本無料とプレミアムプランの値段を、同じ大きさの2行で並べる */
+  .plans { margin: 0 0 20px; display: flex; flex-direction: column; gap: 4px; }
+  .plans p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-body); }
+  .plans b { color: var(--text); font-weight: 700; }
   .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; margin-bottom: 20px; }
   .price .amount { font-family: 'JetBrains Mono', monospace; font-weight: 300; font-size: 34px; }
   .price .note { font-size: 13px; color: var(--text-muted); }
@@ -123,13 +127,13 @@
         </div>
         <p>Take a breath before you open that app. A short wait helps you stop using your phone without thinking, by your own choice.</p>
         <ul class="features">
-          <li>A wait screen appears when you open an app or website you chose</li>
+          <li>A waiting screen appears when you open an app or website you chose</li>
           <li>Write why you're opening it, then open it</li>
           <li>Look back on your usage compared with last week</li>
         </ul>
-        <div class="price">
-          <span class="amount">$3.99</span>
-          <span class="note">/ month in the US · local prices in Google Play · 14-day trial</span>
+        <div class="plans">
+          <p><b>Free</b> (with in-app purchases)</p>
+          <p>Premium plan: USD 3.99/month or USD 23.99/year in the US</p>
         </div>
         <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">Get it on Google Play</a>
         <a class="more" href="/anti-dopa-en.html">Learn more</a>

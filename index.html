@@ -62,6 +62,10 @@
   .features { margin: 0 0 24px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.6; color: var(--text-sub); }
   .features li { padding-left: 16px; position: relative; }
   .features li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+  /* 料金：基本無料とプレミアムプランの値段を、同じ大きさの2行で並べる */
+  .plans { margin: 0 0 20px; display: flex; flex-direction: column; gap: 4px; }
+  .plans p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-body); }
+  .plans b { color: var(--text); font-weight: 700; }
   .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; margin-bottom: 20px; }
   .price .amount { font-family: 'JetBrains Mono', monospace; font-weight: 300; font-size: 34px; }
   .price .note { font-size: 13px; color: var(--text-muted); }
@@ -121,15 +125,15 @@
             <div class="status">公開中 ・ Android</div>
           </div>
         </div>
-        <p>開きかけたアプリの前に、ひと呼吸。待機時間をはさんで、無意識のスマホ利用を自分で止められます。</p>
+        <p>開きかけたアプリの前で、ひと呼吸おけます。待ち時間をはさんで、無意識のスマホ利用を自分で止められます。</p>
         <ul class="features">
-          <li>決めたアプリやサイトを開くと、待機画面が出る</li>
-          <li>使う理由を書いてから開く</li>
-          <li>使った時間を、先週と比べて振り返る</li>
+          <li>決めたアプリやサイトを開くと、待機画面が出ます。</li>
+          <li>使う理由を書いてから開けます。</li>
+          <li>使った時間を、先週と比べて振り返れます。</li>
         </ul>
-        <div class="price">
-          <span class="amount">¥480</span>
-          <span class="note">/ 月（税込）・ 最初の14日間は無料</span>
+        <div class="plans">
+          <p><b>基本無料</b>（アプリ内購入あり）</p>
+          <p>プレミアムプラン：月額480円／年額2,880円（税込）</p>
         </div>
         <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">Google Play で入手</a>
         <a class="more" href="/anti-dopa.html">くわしく見る</a>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anti-Dopa | Forward Place</title>
-<meta name="description" content="開きかけたアプリの前に待機時間を挟み、無意識の利用を自分で止めるためのアプリ「Anti-Dopa」。Forward Place が開発しています。">
+<meta name="description" content="Anti-Dopa は、開きかけたアプリの前に待ち時間をはさみ、無意識の利用を自分で止めるためのアプリです。Forward Place が開発しています。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@300;400&family=IBM+Plex+Sans+Condensed:wght@400&display=swap" rel="stylesheet">
@@ -61,6 +61,10 @@
   }
   .features { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.6; color: var(--text-body); }
   .features li::before { content: "・ "; }
+  /* 料金：基本無料とプレミアムプランの値段を、同じ大きさの2行で並べる */
+  .plans { margin: 0 0 20px; display: flex; flex-direction: column; gap: 4px; }
+  .plans p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-body); }
+  .plans b { color: var(--text); font-weight: 700; }
   .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
   .price .amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 300; }
   .price .note { font-size: 14px; color: #B5B2AA; }
@@ -102,7 +106,7 @@
         <div class="status">公開中 ・ Android</div>
       </div>
     </div>
-    <p class="lede">開きかけたアプリの前に待機時間を挟み、無意識の利用を自分で止めるためのアプリ。</p>
+    <p class="lede">Anti-Dopa は、開きかけたアプリの前に待ち時間をはさみ、無意識の利用を自分で止めるためのアプリです。</p>
     <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">Google Play で入手</a>
   </section>
 
@@ -110,9 +114,9 @@
     <div class="eyebrow">できること</div>
     <div class="card">
       <ul class="features">
-        <li>アプリ利用制限機能</li>
-        <li>利用振り返り機能</li>
-        <li>利用時間表示機能</li>
+        <li>決めたアプリやサイトを開くと、待機画面が出ます。</li>
+        <li>使う理由を書いてから開けます。</li>
+        <li>使った時間を、先週と比べて振り返れます。</li>
       </ul>
     </div>
   </section>
@@ -120,12 +124,12 @@
   <section class="block">
     <div class="eyebrow">利用料金</div>
     <div class="card">
-      <div class="price">
-        <span class="amount">¥480</span>
-        <span class="note">/ 月・税込</span>
+      <div class="plans">
+        <p><b>基本無料</b>（アプリ内購入あり）</p>
+        <p>プレミアムプラン：月額480円／年額2,880円（税込）</p>
       </div>
-      <div class="spec-label">自社サービス(アプリ内課金)</div>
-      <p class="spec-note">初回起動から14日間は無料でお試しいただけます。以降は月額プランの購読が必要です。購読は毎月自動で更新され、Google Play の「定期購入」からいつでも解約できます。お支払いは Google Play を通じて行われ、購読の手続き後すぐにご利用いただけます。</p>
+      <div class="spec-label">プレミアムプラン（アプリ内課金）</div>
+      <p class="spec-note">基本無料で使えます。無料版では、アプリを1つとサイトを1つ制限できます。プレミアムプラン（月額480円／年額2,880円、いずれも税込）に登録すると、アプリとサイトをいくつでも制限でき、制限の厳しさの選択や時間帯ごとの設定、アプリ当てクイズも使えます。プレミアムプランは自動で更新され、Google Play の「定期購入」からいつでも解約できます。お支払いは Google Play を通じて行われ、登録の手続きが終わるとすぐに使えます。</p>
     </div>
   </section>
 

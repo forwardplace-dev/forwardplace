@@ -63,6 +63,10 @@
   }
   .features { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.6; color: var(--text-body); }
   .features li::before { content: "・ "; }
+  /* 料金：基本無料とプレミアムプランの値段を、同じ大きさの2行で並べる */
+  .plans { margin: 0 0 20px; display: flex; flex-direction: column; gap: 4px; }
+  .plans p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-body); }
+  .plans b { color: var(--text); font-weight: 700; }
   .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
   .price .amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 300; }
   .price .note { font-size: 14px; color: #B5B2AA; }
@@ -104,7 +108,7 @@
         <div class="status">Available ・ Android</div>
       </div>
     </div>
-    <p class="lede">Puts a short wait in front of the apps you are about to open, so you can stop mindless use yourself.</p>
+    <p class="lede">Anti-Dopa puts a short wait in front of the apps you are about to open, so you can stop mindless use yourself.</p>
     <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">Get it on Google Play</a>
   </section>
 
@@ -112,9 +116,9 @@
     <div class="eyebrow">WHAT IT DOES</div>
     <div class="card">
       <ul class="features">
-        <li>Limits the apps and websites you choose</li>
-        <li>Helps you reflect on each use</li>
-        <li>Shows how much time you spend</li>
+        <li>It limits the apps and websites you choose.</li>
+        <li>It helps you reflect on each use.</li>
+        <li>It shows how much time you spend.</li>
       </ul>
     </div>
   </section>
@@ -122,12 +126,12 @@
   <section class="block">
     <div class="eyebrow">PRICING</div>
     <div class="card">
-      <div class="price">
-        <span class="amount">14 days free</span>
-        <span class="note">then a monthly subscription</span>
+      <div class="plans">
+        <p><b>Free</b> (with in-app purchases)</p>
+        <p>Premium plan: USD 3.99/month or USD 23.99/year in the US</p>
       </div>
-      <div class="spec-label">In-app subscription</div>
-      <p class="spec-note">Try it free for 14 days from first launch. After that, a monthly subscription is needed. The price, including any taxes, is shown in Google Play in your local currency before you subscribe. The subscription renews automatically every month, and you can cancel anytime under Subscriptions in Google Play. Payment is handled by Google Play, and you can use it right after subscribing.</p>
+      <div class="spec-label">Premium (in-app purchase)</div>
+      <p class="spec-note">Anti-Dopa is free to use, and you can restrict 1 app and 1 website. With Premium (USD 3.99/month or USD 23.99/year), you can restrict as many apps and websites as you want, and you can also choose the strictness, set it by time of day, and use the Which app quiz. Prices, including any taxes, are shown in Google Play in your local currency. Premium renews automatically, and you can cancel anytime under Subscriptions in Google Play. Payment is handled by Google Play, and Premium starts right after you sign up.</p>
     </div>
   </section>
 
