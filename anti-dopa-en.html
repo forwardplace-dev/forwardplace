@@ -67,6 +67,10 @@
   .plans { margin: 0 0 20px; display: flex; flex-direction: column; gap: 4px; }
   .plans p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-body); }
   .plans b { color: var(--text); font-weight: 700; }
+  /* ストア画像を横に流して見せる */
+  .shots { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #3A3C40 transparent; }
+  .shots:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .shots img { flex: 0 0 auto; width: 200px; height: auto; border-radius: 12px; display: block; scroll-snap-align: start; background: #000; }
   .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
   .price .amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 300; }
   .price .note { font-size: 14px; color: #B5B2AA; }
@@ -120,6 +124,19 @@
         <li>It helps you reflect on each use.</li>
         <li>It shows how much time you spend.</li>
       </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">SCREENS</div>
+    <div class="shots" tabindex="0" role="group" aria-label="App screens (scroll sideways to see them all)">
+      <img src="anti-dopa-shot-en-01.webp" width="540" height="960" loading="lazy" alt="A breath before you open an app. The countdown on the waiting screen">
+      <img src="anti-dopa-shot-en-02.webp" width="540" height="960" loading="lazy" alt="Your own words stop you. Your pledge on the waiting screen">
+      <img src="anti-dopa-shot-en-03.webp" width="540" height="960" loading="lazy" alt="See your week at a glance. The home screen">
+      <img src="anti-dopa-shot-en-04.webp" width="540" height="960" loading="lazy" alt="Every time you hold back counts. The self-control log">
+      <img src="anti-dopa-shot-en-05.webp" width="540" height="960" loading="lazy" alt="The wait grows each time. Choosing the strictness">
+      <img src="anti-dopa-shot-en-06.webp" width="540" height="960" loading="lazy" alt="Set the strictness by time of day. A time slot">
+      <img src="anti-dopa-shot-en-07.webp" width="540" height="960" loading="lazy" alt="If you keep this pace for a year. Your yearly usage time">
     </div>
   </section>
 

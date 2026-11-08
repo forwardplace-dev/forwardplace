@@ -65,6 +65,10 @@
   .plans { margin: 0 0 20px; display: flex; flex-direction: column; gap: 4px; }
   .plans p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-body); }
   .plans b { color: var(--text); font-weight: 700; }
+  /* ストア画像を横に流して見せる */
+  .shots { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #3A3C40 transparent; }
+  .shots:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .shots img { flex: 0 0 auto; width: 200px; height: auto; border-radius: 12px; display: block; scroll-snap-align: start; background: #000; }
   .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
   .price .amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 300; }
   .price .note { font-size: 14px; color: #B5B2AA; }
@@ -118,6 +122,19 @@
         <li>使う理由を書いてから開けます。</li>
         <li>使った時間を、先週と比べて振り返れます。</li>
       </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">アプリの画面</div>
+    <div class="shots" tabindex="0" role="group" aria-label="アプリの画面（横に動かして見られます）">
+      <img src="anti-dopa-shot-ja-01.webp" width="540" height="960" loading="lazy" alt="アプリを開く前に、ひと呼吸。待機画面のカウントダウン">
+      <img src="anti-dopa-shot-ja-02.webp" width="540" height="960" loading="lazy" alt="自分の言葉で、自分を止める。待機画面の誓いの言葉">
+      <img src="anti-dopa-shot-ja-03.webp" width="540" height="960" loading="lazy" alt="今週の使い方が、ひと目で。ホーム画面">
+      <img src="anti-dopa-shot-ja-04.webp" width="540" height="960" loading="lazy" alt="自制できた回数が、残っていく。自制の記録">
+      <img src="anti-dopa-shot-ja-05.webp" width="540" height="960" loading="lazy" alt="使うたびに、待ち時間が少し長く。制限の厳しさの選択">
+      <img src="anti-dopa-shot-ja-06.webp" width="540" height="960" loading="lazy" alt="時間帯ごとに、制限の厳しさを変えられる。時間帯の設定">
+      <img src="anti-dopa-shot-ja-07.webp" width="540" height="960" loading="lazy" alt="このペースで1年続けたら？ 1年の利用時間">
     </div>
   </section>
 
