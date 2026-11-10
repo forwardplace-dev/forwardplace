@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRONOTE | Forward Place</title>
+<meta name="description" content="IRONOTE は、筋トレの重さと回数を、ノートのように1日1枚のシートに書く記録アプリです。Forward Place が開発しています。">
+<link rel="alternate" hreflang="ja" href="https://forwardplace.jp/ironote.html">
+<link rel="alternate" hreflang="en" href="https://forwardplace.jp/ironote-en.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@300;400&family=IBM+Plex+Sans+Condensed:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111214;
+    --card: #1A1C1F;
+    --line: #26282C;
+    --card-line: #2E3034;
+    --text: #F2F0EA;
+    --text-sub: #C9C6BE;
+    --text-body: #DAD7CF;
+    --text-muted: #9A978F;
+    --gold: #D9B45A;
+    --gold-hover: #F0CF7A;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); }
+  a:hover { color: var(--gold-hover); }
+  .page { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+
+  header.top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px;
+  }
+  .brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 3px; color: var(--gold); text-decoration: none; }
+  header.top .back { font-size: 14px; text-decoration: none; padding: 12px 0; }
+  header.top .nav { display: flex; gap: 20px; }
+
+  .hero { padding: 48px 24px 32px; display: flex; flex-direction: column; gap: 20px; }
+  .hero-head { display: flex; gap: 16px; align-items: center; }
+  .hero-head img { width: 72px; height: 72px; border-radius: 16px; border: 1px solid #3A3C40; background: #000; display: block; }
+  .hero h1 { margin: 0; font-size: 30px; font-weight: 700; }
+  .status { font-size: 13px; color: var(--gold); margin-top: 4px; }
+  .lede { margin: 0; font-size: 16px; line-height: 1.8; color: var(--text-body); }
+  .cta {
+    display: flex; justify-content: center; align-items: center; height: 52px; border-radius: 26px;
+    background: var(--gold); color: var(--bg); font-size: 16px; font-weight: 700; text-decoration: none;
+  }
+  .cta:hover { background: var(--gold-hover); color: var(--bg); }
+
+  section.block { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 2px; color: var(--text-muted); }
+  .card {
+    background: var(--card); border: 1px solid var(--card-line); border-radius: 8px;
+    padding: 24px; display: flex; flex-direction: column; gap: 16px;
+  }
+  .features { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.6; color: var(--text-body); }
+  .features li::before { content: "・ "; }
+  /* 料金：基本無料とプレミアムプランの値段を、同じ大きさの2行で並べる */
+  .plans { margin: 0 0 20px; display: flex; flex-direction: column; gap: 4px; }
+  .plans p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-body); }
+  .plans b { color: var(--text); font-weight: 700; }
+  /* ストア画像を横に流して見せる */
+  .shots { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #3A3C40 transparent; }
+  .shots:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .shots img { flex: 0 0 auto; width: 200px; height: auto; border-radius: 12px; display: block; scroll-snap-align: start; background: #000; }
+  .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
+  .price .amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 300; }
+  .price .note { font-size: 14px; color: #B5B2AA; }
+  .spec-label { font-size: 15px; font-weight: 500; }
+  .spec-note { margin: 0; font-size: 14px; line-height: 1.8; color: var(--text-sub); }
+
+  footer {
+    margin-top: auto; padding: 32px 24px 48px;
+    display: flex; flex-direction: column; gap: 12px; font-size: 13px;
+  }
+  .legal { display: flex; flex-wrap: wrap; gap: 12px 16px; }
+  .copyright { color: #7D7A73; }
+  .spacer { height: 32px; }
+
+  /* 文字ロゴ「FORWARD / PLACE →」（トップと同じ） */
+  .logo { display: inline-grid; color: #F2F0EA; text-decoration: none; font-family: 'IBM Plex Sans Condensed', 'DIN Condensed', 'Arial Narrow', sans-serif; font-size: 22px; line-height: 1.1; letter-spacing: .14em; }
+  .logo:hover { color: #F2F0EA; }
+  .logo > span:first-child { margin-right: -.14em; }
+  .logo .l2 { display: flex; justify-content: space-between; align-items: center; }
+  .logo svg { width: 12px; height: 13px; flex: none; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <a class="logo" href="/" aria-label="Forward Place"><span aria-hidden="true">FORWARD</span><span class="l2" aria-hidden="true">PLACE<svg viewBox="0 0 60 64"><path d="M2 32H58M30 2L59 32L30 62" fill="none" stroke="#D9B45A" stroke-width="8"/></svg></span></a>
+    <div class="nav">
+      <a class="back" href="/ironote-en.html" lang="en" hreflang="en">English</a>
+      <a class="back" href="/">&larr;&nbsp;トップへ</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-head">
+      <img src="icon-ironote.png" alt="">
+      <div>
+        <h1>IRONOTE</h1>
+        <div class="status">公開中 ・ Android</div>
+      </div>
+    </div>
+    <p class="lede">IRONOTE は、筋トレの重さと回数を記録するアプリです。紙のノートのように、1日1枚のシートに種目と重さ・回数を書いていきます。</p>
+    <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.ironote">Google Play で入手</a>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">できること</div>
+    <div class="card">
+      <ul class="features">
+        <li>点線の枠に、前のセットや前回の値が入っています。同じでよければ、ダブルタップで記録できます。</li>
+        <li>ホームの「今週の帯」で、今週どの日に何をやったかがひと目で分かります。</li>
+        <li>種目ごとに、重さ・ボリューム・推定1RM の推移をグラフと数字で見られます。</li>
+        <li>最大重量の％で重さが決まるプログラムを作れます。記録すると、自動で次の回に進みます。</li>
+        <li>休憩のストップウォッチは、通知を許可すると、画面を閉じてもロック画面で動き続けます。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">アプリの画面</div>
+    <div class="shots" tabindex="0" role="group" aria-label="アプリの画面（横に動かして見られます）">
+      <img src="ironote-shot-ja-01.webp" width="540" height="960" loading="lazy" alt="ノートのように、重さと回数を書ける。1日1枚のシート">
+      <img src="ironote-shot-ja-02.webp" width="540" height="960" loading="lazy" alt="今週やった日が、ひと目でわかる。ホーム画面">
+      <img src="ironote-shot-ja-03.webp" width="540" height="960" loading="lazy" alt="伸びが、グラフと数字でわかる。種目ごとの記録の推移">
+      <img src="ironote-shot-ja-04.webp" width="540" height="960" loading="lazy" alt="種目は、部位で探せる。種目の選択">
+      <img src="ironote-shot-ja-05.webp" width="540" height="960" loading="lazy" alt="プログラムを、％で組める。プログラムの設定">
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">利用料金</div>
+    <div class="card">
+      <div class="plans">
+        <p><b>無料</b></p>
+        <p>アプリ内購入と広告はありません。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">データについて</div>
+    <div class="card">
+      <p class="spec-note">データは端末の中に保存し、当方が受け取ることはありません。IRONOTE はインターネットに接続せず、広告もありません。記録はファイルに保存して、機種変更のときに新しいスマホへ移せます。表計算アプリで開ける CSV でも書き出せます。</p>
+    </div>
+  </section>
+
+  <div class="spacer"></div>
+
+  <footer>
+    <div class="legal">
+      <a href="/ironote-privacy.html">プライバシーポリシー</a>
+      <a href="/ironote-terms.html">利用規約</a>
+    </div>
+    <div class="copyright">© Forward Place</div>
+  </footer>
+
+</div>
+</body>
+</html>
