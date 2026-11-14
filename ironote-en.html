@@ -7,168 +7,246 @@
 <meta name="description" content="IRONOTE is a workout log for weights and reps. Like a paper notebook, you write your exercises, weights and reps on one sheet a day. Made by Forward Place.">
 <link rel="alternate" hreflang="ja" href="https://forwardplace.jp/ironote.html">
 <link rel="alternate" hreflang="en" href="https://forwardplace.jp/ironote-en.html">
-<link rel="alternate" hreflang="ja" href="/anti-dopa.html">
-<link rel="alternate" hreflang="en" href="/anti-dopa-en.html">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@300;400&family=IBM+Plex+Sans+Condensed:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@300;400&family=IBM+Plex+Sans+Condensed:wght@400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #111214;
-    --card: #1A1C1F;
-    --line: #26282C;
-    --card-line: #2E3034;
-    --text: #F2F0EA;
-    --text-sub: #C9C6BE;
-    --text-body: #DAD7CF;
-    --text-muted: #9A978F;
-    --gold: #D9B45A;
-    --gold-hover: #F0CF7A;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Noto Sans JP', sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--gold); }
-  a:hover { color: var(--gold-hover); }
-  .page { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+  :root { --bg:#111214; --card:#17181B; --card2:#1E2024; --line:#2A2620; --text:#F2F0EA; --text-sub:#B9B5AC; --text-body:#D6D2C9; --text-muted:#8E8A82; --gold:#D9B45A; --gold-hover:#F0CF7A; }
+  * { box-sizing:border-box; }
+  html { scroll-snap-type:y proximity; scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:'Noto Sans JP',"Hiragino Sans","Yu Gothic",Meiryo,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  a { color:var(--gold); text-decoration:none; }
+  a:hover { color:var(--gold-hover); }
+  a:focus-visible, button:focus-visible, .shots:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
 
-  header.top {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 24px;
-  }
-  .brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 3px; color: var(--gold); text-decoration: none; }
-  header.top .back { font-size: 14px; text-decoration: none; padding: 12px 0; }
-  header.top .nav { display: flex; gap: 20px; }
+  header.top { position:fixed; top:0; left:0; right:0; z-index:5; display:flex; justify-content:space-between; align-items:center; padding:16px 20px; background:linear-gradient(180deg, rgba(17,18,20,.95), rgba(17,18,20,0)); }
+  /* ロゴ M6-b（トップと同じ） */
+  .logo { display:flex; align-items:center; gap:10px; color:var(--text); font-family:'IBM Plex Sans Condensed','DIN Condensed','Arial Narrow',sans-serif; font-size:17px; line-height:1.1; letter-spacing:.14em; }
+  .logo:hover { color:var(--text); }
+  .logo svg { width:32px; height:32px; flex:none; }
+  header.top nav { display:flex; gap:16px; font-size:13px; }
+  header.top nav a { color:var(--text-sub); padding:12px 0; }
+  header.top nav a:hover { color:var(--gold); }
 
-  .hero { padding: 48px 24px 32px; display: flex; flex-direction: column; gap: 20px; }
-  .hero-head { display: flex; gap: 16px; align-items: center; }
-  .hero-head img { width: 72px; height: 72px; border-radius: 16px; border: 1px solid #3A3C40; background: #000; display: block; }
-  .hero h1 { margin: 0; font-size: 30px; font-weight: 700; }
-  .status { font-size: 13px; color: var(--gold); margin-top: 4px; }
-  .lede { margin: 0; font-size: 16px; line-height: 1.8; color: var(--text-body); }
-  .cta {
-    display: flex; justify-content: center; align-items: center; height: 52px; border-radius: 26px;
-    background: var(--gold); color: var(--bg); font-size: 16px; font-weight: 700; text-decoration: none;
-  }
-  .cta:hover { background: var(--gold-hover); color: var(--bg); }
+  .rail { position:fixed; right:10px; top:84px; bottom:28px; width:20px; z-index:4; pointer-events:none; }
+  .rail::before { content:""; position:absolute; left:9px; top:0; bottom:0; width:2px; background:#26282C; border-radius:1px; }
+  .rail .fill { position:absolute; left:9px; top:0; width:2px; height:calc(var(--p,0) * 100%); background:var(--gold); border-radius:1px; }
+  .rail svg { position:absolute; left:0; top:calc(var(--p,0) * 100% - 10px); width:20px; height:20px; fill:var(--gold); transform:rotate(135deg); }
+  .count { position:fixed; left:12px; bottom:10px; z-index:4; background:rgba(17,18,20,.92); border-radius:10px; padding:5px 8px; font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:2px; color:var(--text-muted); pointer-events:none; }
+  .count b { color:var(--gold); font-weight:400; }
 
-  section.block { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
-  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 2px; color: var(--text-muted); }
-  .card {
-    background: var(--card); border: 1px solid var(--card-line); border-radius: 8px;
-    padding: 24px; display: flex; flex-direction: column; gap: 16px;
-  }
-  .features { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.6; color: var(--text-body); }
-  .features li::before { content: "・ "; }
-  /* 料金：基本無料とプレミアムプランの値段を、同じ大きさの2行で並べる */
-  .plans { margin: 0 0 20px; display: flex; flex-direction: column; gap: 4px; }
-  .plans p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-body); }
-  .plans b { color: var(--text); font-weight: 700; }
-  /* ストア画像を横に流して見せる */
-  .shots { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #3A3C40 transparent; }
-  .shots:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-  .shots img { flex: 0 0 auto; width: 200px; height: auto; border-radius: 12px; display: block; scroll-snap-align: start; background: #000; }
-  .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
-  .price .amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 300; }
-  .price .note { font-size: 14px; color: #B5B2AA; }
-  .spec-label { font-size: 15px; font-weight: 500; }
-  .spec-note { margin: 0; font-size: 14px; line-height: 1.8; color: var(--text-sub); }
+  .scr { position:relative; min-height:100vh; min-height:100svh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:88px 44px 64px 24px; max-width:880px; margin:0 auto; }
+  .scr:last-child { padding-bottom:96px; }   /* 左下の「04 / 04」と文字が重ならないようにする */
+  .num { font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-weight:300; font-size:13px; color:var(--text-muted); letter-spacing:2px; margin-bottom:14px; }
 
-  footer {
-    margin-top: auto; padding: 32px 24px 48px;
-    display: flex; flex-direction: column; gap: 12px; font-size: 13px;
-  }
-  .legal { display: flex; flex-wrap: wrap; gap: 12px 16px; }
-  .copyright { color: #7D7A73; }
-  .spacer { height: 32px; }
+  /* 1画面目：アプリの名前と、右から入ってくるスマホの画面 */
+  .split { display:grid; grid-template-columns:1fr; gap:26px; align-items:center; }
+  .head { display:flex; align-items:center; gap:14px; margin-bottom:8px; }
+  .head img { width:60px; height:60px; border-radius:14px; background:#000; flex:none; }
+  h1 { margin:0; font-weight:900; font-size:clamp(34px, 10vw, 64px); line-height:1.12; }
+  .status { font-size:13px; color:var(--gold); margin-bottom:16px; }
+  .lede { margin:0 0 22px; font-size:16px; line-height:1.9; color:var(--text-body); max-width:27em; }
+  .cta { display:inline-flex; justify-content:center; align-items:center; text-align:center; min-height:52px; padding:6px 28px; border-radius:26px; background:var(--gold); color:var(--bg); font-weight:700; }
+  .cta:hover { background:var(--gold-hover); color:var(--bg); }
+  .phone { width:min(40vw,220px); border-radius:22px; background:#000; padding:6px; box-shadow:0 0 0 2px #2A2C30, 0 24px 48px rgba(0,0,0,.5); justify-self:center; }
+  .phone img { width:100%; height:auto; display:block; border-radius:17px; }
 
-  /* 文字ロゴ「FORWARD / PLACE →」（トップと同じ） */
-  .logo { display: inline-grid; color: #F2F0EA; text-decoration: none; font-family: 'IBM Plex Sans Condensed', 'DIN Condensed', 'Arial Narrow', sans-serif; font-size: 22px; line-height: 1.1; letter-spacing: .14em; }
-  .logo:hover { color: #F2F0EA; }
-  .logo > span:first-child { margin-right: -.14em; }
-  .logo .l2 { display: flex; justify-content: space-between; align-items: center; }
-  .logo svg { width: 12px; height: 13px; flex: none; }
+  /* 2画面目：できること（1行ずつ現れる）と、その場の体験 */
+  h2 { margin:0 0 18px; font-weight:900; font-size:clamp(26px, 7.4vw, 40px); line-height:1.2; }
+  .features { margin:0 0 22px; padding:0; list-style:none; display:flex; flex-direction:column; gap:14px; counter-reset:f; }
+  .features li { counter-increment:f; display:grid; grid-template-columns:30px 1fr; gap:6px; font-size:15px; line-height:1.75; color:var(--text-body); }
+  .features li::before { content:counter(f, decimal-leading-zero); font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-weight:300; font-size:13px; color:var(--gold); line-height:2; }
+  .try { background:var(--card); border-radius:16px; padding:20px; text-align:center; min-height:212px; width:100%; max-width:440px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; }
+  .try .cap { font-size:12px; color:var(--text-muted); line-height:1.6; }
+  .btn { font:inherit; font-size:14px; font-weight:700; color:var(--bg); background:var(--gold); border:0; border-radius:22px; min-height:44px; padding:6px 22px; cursor:pointer; }
+  .btn.ghost { background:transparent; color:var(--text-sub); box-shadow:inset 0 0 0 1px #3A3B3F; }
+  .ring { position:relative; width:120px; height:120px; }
+  .ring svg { width:100%; height:100%; transform:rotate(-90deg); }
+  .ring circle { fill:none; stroke-width:6; }
+  .ring .tr { stroke:#2E3034; }
+  .ring .pg { stroke:var(--gold); stroke-linecap:round; stroke-dasharray:327; stroke-dashoffset:0; }
+  .ring .n { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-weight:300; font-size:40px; }
+  .breath { animation:breath 4s ease-in-out infinite; }
+  @keyframes breath { 50% { transform:scale(1.08); } }
+  .msg { font-size:15px; color:var(--text); line-height:1.7; }
+  .chart { width:100%; }
+  .bars { display:flex; align-items:flex-end; gap:8px; height:110px; width:100%; }
+  .bars div { flex:1; background:#3A3B3F; border-radius:4px 4px 0 0; height:var(--h); transform:scaleY(0); transform-origin:bottom; transition:transform .9s cubic-bezier(.2,.8,.2,1); transition-delay:var(--b); }
+  .bars div:last-child { background:var(--gold); }
+  .go .bars div { transform:scaleY(1); }
+  .kg { margin-top:10px; font-size:13px; color:var(--text-sub); }
+  .kg b { font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-weight:300; font-size:28px; color:var(--text); }
+
+  /* 3画面目：ストアの画像を横に流して見せる */
+  .shots { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -44px 0 -24px; padding:4px 44px 8px 24px; scroll-padding:0 24px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .shots::-webkit-scrollbar { display:none; }
+  .shots img { flex:0 0 auto; width:min(56vw,230px); height:auto; border-radius:14px; display:block; scroll-snap-align:start; background:#000; }
+  .pager { display:flex; align-items:center; gap:6px; margin-top:14px; font-size:12px; color:var(--text-muted); }
+  .pager i { width:6px; height:6px; border-radius:3px; background:#3A3B3F; transition:width .3s, background .3s; }
+  .pager i.on { width:18px; background:var(--gold); }
+  .pager span { margin-left:8px; }
+
+  /* 4画面目：料金など */
+  .box { background:var(--card); border-radius:16px; padding:22px; margin-bottom:14px; max-width:640px; }
+  .box .label { font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:2px; color:var(--gold); margin-bottom:10px; }
+  .plans p { margin:0; font-size:15px; line-height:1.7; color:var(--text-body); }
+  .plans b { color:var(--text); font-weight:700; }
+  .spec-label { font-size:15px; font-weight:500; margin:16px 0 8px; }
+  .spec-note { margin:0; font-size:14px; line-height:1.8; color:var(--text-sub); }
+  footer { margin-top:24px; display:flex; flex-direction:column; gap:12px; font-size:13px; }
+  .legal { display:flex; flex-wrap:wrap; gap:12px 16px; }
+  .copyright { color:var(--text-muted); }
+
+  /* 動き：その画面に入ったときに、ずれた位置から入ってくる。JavaScript が動かないときは、最初から全部見える。 */
+  .js .fx { opacity:0; transition:opacity .9s ease, transform 1s cubic-bezier(.2,.8,.2,1); transition-delay:var(--d,0s); }
+  .js .fx.l { transform:translateX(-36px); }
+  .js .fx.r { transform:translateX(60px) rotate(3deg); }
+  .js .fx.u { transform:translateY(40px); }
+  .js .on .fx { opacity:1; transform:none; }
+  html:not(.js) .bars div { transform:none; }
+  html:not(.js) .rail, html:not(.js) .count, html:not(.js) .needs-js { display:none; }
+  @media (min-width:760px) { .split { grid-template-columns:1fr auto; gap:56px; } .scr { padding-left:40px; } .shots { margin:0; padding:4px 0 8px; scroll-padding:0; scrollbar-width:thin; scrollbar-color:#3A3C40 transparent; } }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; scroll-snap-type:none; } .js .fx { transition:none; opacity:1; transform:none !important; } .breath { animation:none; } .bars div { transition:none; transform:none; } }
 </style>
 </head>
 <body>
-<div class="page">
+<header class="top">
+  <a class="logo" href="/index-en.html" aria-label="Forward Place"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#F2F0EA" d="M6 15H22V20H11V37H28V26H33V42H6Z"/><path fill="#D9B45A" d="M16 28.5L30 14.5H24V8H40V24H33.5V18L19.5 32Z"/></svg><span aria-hidden="true">FORWARD<br>PLACE</span></a>
+  <nav><a href="/ironote.html" lang="ja" hreflang="ja">日本語</a><a href="/index-en.html">&larr;&nbsp;Home</a></nav>
+</header>
+<div class="rail" id="rail" aria-hidden="true"><div class="fill"></div><svg viewBox="0 0 48 48"><path d="M16 28.5L30 14.5H24V8H40V24H33.5V18L19.5 32Z"/></svg></div>
+<div class="count" aria-hidden="true"><b id="cur">01</b> / 04</div>
 
-  <header class="top">
-    <a class="logo" href="/index-en.html" aria-label="Forward Place"><span aria-hidden="true">FORWARD</span><span class="l2" aria-hidden="true">PLACE<svg viewBox="0 0 60 64"><path d="M2 32H58M30 2L59 32L30 62" fill="none" stroke="#D9B45A" stroke-width="8"/></svg></span></a>
-    <div class="nav">
-      <a class="back" href="/ironote.html" lang="ja" hreflang="ja">日本語</a>
-      <a class="back" href="/index-en.html">&larr;&nbsp;Home</a>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-head">
-      <img src="icon-ironote.png" alt="">
+<main>
+  <section class="scr" id="s1">
+    <div class="split">
       <div>
-        <h1>IRONOTE</h1>
-        <div class="status">Available ・ Android</div>
+        <div class="head fx l"><img src="icon-ironote.png" alt="" width="60" height="60"><h1>IRONOTE</h1></div>
+        <div class="status fx l" style="--d:.08s">Available ・ Android</div>
+        <p class="lede fx l" style="--d:.16s">IRONOTE is a workout log for weights and reps. Like a paper notebook, you write your exercises, weights and reps on one sheet a day.</p>
+        <div class="fx u" style="--d:.26s"><a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.ironote">Get it on Google Play</a></div>
       </div>
-    </div>
-    <p class="lede">IRONOTE is a workout log for weights and reps. Like a paper notebook, you write your exercises, weights and reps on one sheet a day.</p>
-    <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.ironote">Get it on Google Play</a>
-  </section>
-
-  <section class="block">
-    <div class="eyebrow">WHAT IT DOES</div>
-    <div class="card">
-      <ul class="features">
-        <li>The dotted box already shows your previous set or last session's numbers. If they're the same, double-tap to log it.</li>
-        <li>This week's strip on the home screen shows which days you trained and what you did.</li>
-        <li>You can check weight, volume and estimated 1RM for each exercise as a chart and as numbers.</li>
-        <li>You can build programs based on a percentage of your max. Each time you log, the program moves to the next session.</li>
-        <li>If you allow notifications, the rest timer keeps running on the lock screen after you close the app.</li>
-      </ul>
+      <div class="phone fx r" style="--d:.2s"><img src="ironote-shot-en-01.webp" width="540" height="960" alt="Log weights and reps like a notebook. One sheet a day"></div>
     </div>
   </section>
 
-  <section class="block">
-    <div class="eyebrow">SCREENS</div>
-    <div class="shots" tabindex="0" role="group" aria-label="App screens (scroll sideways to see them all)">
+  <section class="scr" id="s2">
+    <div class="num fx l">01 ・ WHAT IT DOES</div>
+    <h2 class="fx l" style="--d:.06s">What it does</h2>
+    <ul class="features">
+      <li class="fx l" style="--d:0.10s"><span>The dotted box already shows your previous set or last session's numbers. If they're the same, double-tap to log it.</span></li>
+      <li class="fx l" style="--d:0.18s"><span>This week's strip on the home screen shows which days you trained and what you did.</span></li>
+      <li class="fx l" style="--d:0.26s"><span>You can check weight, volume and estimated 1RM for each exercise as a chart and as numbers.</span></li>
+      <li class="fx l" style="--d:0.34s"><span>You can build programs based on a percentage of your max. Each time you log, the program moves to the next session.</span></li>
+      <li class="fx l" style="--d:0.42s"><span>If you allow notifications, the rest timer keeps running on the lock screen after you close the app.</span></li>
+    </ul>
+    <div class="try fx u" style="--d:0.50s" id="iron"><div class="cap">See your progress for each exercise as a chart (sample numbers)</div><div class="chart"><div class="bars" aria-hidden="true"><div style="--h:44%;--b:0.00s"></div><div style="--h:50%;--b:0.08s"></div><div style="--h:58%;--b:0.16s"></div><div style="--h:63%;--b:0.24s"></div><div style="--h:74%;--b:0.32s"></div><div style="--h:82%;--b:0.40s"></div><div style="--h:100%;--b:0.48s"></div></div><div class="kg">Bench press <b id="kg">82.5</b> kg</div></div></div>
+  </section>
+
+  <section class="scr" id="s3">
+    <div class="num fx l">02 ・ SCREENS</div>
+    <h2 class="fx l" style="--d:.06s">Screens</h2>
+    <div class="shots fx u" style="--d:.15s" id="shots" tabindex="0" role="group" aria-label="App screens (scroll sideways to see them all)">
       <img src="ironote-shot-en-01.webp" width="540" height="960" loading="lazy" alt="Log weights and reps like a notebook. One sheet a day">
       <img src="ironote-shot-en-02.webp" width="540" height="960" loading="lazy" alt="See the days you trained this week at a glance. The home screen">
       <img src="ironote-shot-en-03.webp" width="540" height="960" loading="lazy" alt="See your progress as a chart and as numbers. Progress for each exercise">
       <img src="ironote-shot-en-04.webp" width="540" height="960" loading="lazy" alt="Find exercises by body part. Choosing an exercise">
       <img src="ironote-shot-en-05.webp" width="540" height="960" loading="lazy" alt="Build programs by percentage. Program settings">
     </div>
+    <div class="pager fx u" style="--d:.3s" id="pager" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><span>Swipe sideways</span></div>
   </section>
 
-  <section class="block">
-    <div class="eyebrow">PRICING</div>
-    <div class="card">
-      <div class="plans">
+  <section class="scr" id="s4">
+    <div class="num fx l">03 ・ PRICING</div>
+    <h2 class="fx l" style="--d:.06s">Pricing</h2>
+    <div class="box fx u" style="--d:0.12s"><div class="plans">
         <p><b>Free</b></p>
         <p>There are no in-app purchases and no ads.</p>
-      </div>
-    </div>
+      </div></div>
+    <div class="box fx u" style="--d:0.20s"><div class="label">YOUR DATA</div><p class="spec-note">Everything is stored on your device, and we never receive it. IRONOTE doesn't connect to the internet and has no ads. Save your records to a file to move them to a new phone, or export a CSV for spreadsheets. Weights are in kg in this version.</p></div>
+    <div class="fx u" style="--d:.3s"><a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.ironote">Get it on Google Play</a></div>
+    <footer class="fx u" style="--d:.36s">
+      <div class="legal"><a href="/ironote-privacy-en.html">Privacy Policy</a> <a href="/ironote-terms-en.html">Terms of Use</a></div>
+      <div class="copyright">© Forward Place</div>
+    </footer>
   </section>
+</main>
+<script>
+  document.documentElement.classList.add('js');
+  const T = {"breathe": "Take one breath.", "ask": "Do you still want to open it?", "no": "Not now", "yes": "Open", "stopped": "You stopped once. Moments like this add up to time you get back.", "opened": "You can still open it. The app doesn't block you; it lets you choose.", "again": "Try again"};
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = id => document.getElementById(id);
+  const scrs = [...document.querySelectorAll('.scr')], rail = $('rail'), cur = $('cur');
 
-  <section class="block">
-    <div class="eyebrow">YOUR DATA</div>
-    <div class="card">
-      <p class="spec-note">Everything is stored on your device, and we never receive it. IRONOTE doesn't connect to the internet and has no ads. Save your records to a file to move them to a new phone, or export a CSV for spreadsheets. Weights are in kg in this version.</p>
-    </div>
-  </section>
+  // 画面に入ったら、その画面の中身を動かして見せる
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('on'); cur.textContent = String(scrs.indexOf(e.target) + 1).padStart(2, '0');
+  }), { threshold: .2 });
+  scrs.forEach(s => io.observe(s));
 
-  <div class="spacer"></div>
+  // 読み進めた分だけ、右の矢印が下りる
+  let wait = false;
+  function onScroll() {
+    if (wait) return; wait = true;
+    requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      rail.style.setProperty('--p', max > 0 ? Math.min(1, scrollY / max) : 0);
+      wait = false;
+    });
+  }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-  <footer>
-    <div class="legal">
-      <a href="/ironote-privacy-en.html">Privacy Policy</a>
-      <a href="/ironote-terms-en.html">Terms of Use</a>
-    </div>
-    <div class="copyright">© Forward Place</div>
-  </footer>
+  // いま見えている画像を、下の印で示す
+  const shots = $('shots'), dots = [...document.querySelectorAll('#pager i')];
+  shots.addEventListener('scroll', () => {
+    const i = Math.round(shots.scrollLeft / (shots.scrollWidth - shots.clientWidth || 1) * (dots.length - 1));
+    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+  }, { passive: true });
 
-</div>
+  // Anti-Dopa の待機画面の体験（ボタン → 5秒待つ → 開くかどうかを聞く）
+  const box = $('try');
+  if (box) {
+    const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
+    const start = () => {
+      box.innerHTML = '<div class="ring breath"><svg viewBox="0 0 120 120"><circle class="tr" cx="60" cy="60" r="52"/><circle class="pg" cx="60" cy="60" r="52"/></svg><div class="n">5</div></div>';
+      box.append(el('div', 'msg', T.breathe));
+      const pg = box.querySelector('.pg'), n = box.querySelector('.n'), t0 = performance.now();
+      const step = t => {
+        const k = Math.min(1, (t - t0) / 5000);
+        pg.style.strokeDashoffset = 327 * k; n.textContent = Math.max(1, Math.ceil(5 - k * 5));
+        if (k < 1) requestAnimationFrame(step); else ask();
+      };
+      requestAnimationFrame(step);
+    };
+    const ask = () => {
+      const row = el('div'); row.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;justify-content:center';
+      const no = el('button', 'btn', T.no), yes = el('button', 'btn ghost', T.yes);
+      no.type = yes.type = 'button'; no.onclick = () => done(T.stopped); yes.onclick = () => done(T.opened);
+      row.append(no, yes); box.replaceChildren(el('div', 'msg', T.ask), row);
+    };
+    const done = text => {
+      const again = el('button', 'btn ghost', T.again); again.type = 'button'; again.onclick = start;
+      box.replaceChildren(el('div', 'msg', text), again);
+    };
+    $('open').onclick = start;
+  }
+
+  // IRONOTE のグラフ：見えたときに伸びる
+  const iron = $('iron');
+  if (iron) {
+    $('kg').textContent = '60.0';
+    const io2 = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; io2.disconnect(); iron.classList.add('go');
+      const el = $('kg'), t0 = performance.now();
+      const step = t => { const k = still ? 1 : Math.min(1, (t - t0) / 1400); el.textContent = (60 + 22.5 * (1 - Math.pow(1 - k, 3))).toFixed(1); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }), { threshold: .7 });
+    io2.observe(iron);
+  }
+</script>
 </body>
 </html>

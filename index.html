@@ -7,172 +7,192 @@
 <link rel="alternate" hreflang="ja" href="/">
 <link rel="alternate" hreflang="en" href="/index-en.html">
 <meta name="description" content="習慣を整えるアプリの企画・開発・運営を行う Forward Place のサイトです。スマホとの付き合い方を変えるアプリ「Anti-Dopa」を公開中。">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@300;400&family=IBM+Plex+Sans+Condensed:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@300;400&family=IBM+Plex+Sans+Condensed:wght@400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #111214;
-    --card: #17181B;
-    --line: #2A2620;
-    --text: #F2F0EA;
-    --text-sub: #B9B5AC;
-    --text-body: #D6D2C9;
-    --text-muted: #8E8A82;
-    --gold: #D9B45A;
-    --gold-hover: #F0CF7A;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
-  a { color: var(--gold); text-decoration: none; }
-  a:hover { color: var(--gold-hover); }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-  .page { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+  :root { --bg:#111214; --card:#17181B; --card2:#1E2024; --line:#2A2620; --text:#F2F0EA; --text-sub:#B9B5AC; --text-body:#D6D2C9; --text-muted:#8E8A82; --gold:#D9B45A; --gold-hover:#F0CF7A; }
+  * { box-sizing:border-box; }
+  html { scroll-snap-type:y proximity; scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:'Noto Sans JP',"Hiragino Sans","Yu Gothic",Meiryo,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  a { color:var(--gold); text-decoration:none; }
+  a:hover { color:var(--gold-hover); }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+  .mono { font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; }
 
-  header.top { display: flex; justify-content: space-between; align-items: center; padding: 24px; }
-  /* 文字ロゴ「FORWARD / PLACE →」。フォントが読めなくても崩れないよう、SVG ではなく文字で組む。 */
-  .logo { display: inline-grid; color: var(--text); font-family: 'IBM Plex Sans Condensed', 'DIN Condensed', 'Arial Narrow', sans-serif; font-size: 22px; line-height: 1.1; letter-spacing: .14em; }
-  .logo:hover { color: var(--text); }
-  .logo > span:first-child { margin-right: -.14em; }  /* 最後の字の後ろの字間を消し、矢印の右端を D にそろえる */
-  .logo .l2 { display: flex; justify-content: space-between; align-items: center; }
-  .logo svg { width: 12px; height: 13px; flex: none; }
-  header.top nav { display: flex; gap: 20px; font-size: 13px; }
-  header.top nav a { color: var(--text-sub); padding: 12px 0; }
-  header.top nav a:hover { color: var(--gold); }
+  header.top { position:fixed; top:0; left:0; right:0; z-index:5; display:flex; justify-content:space-between; align-items:center; padding:16px 20px; background:linear-gradient(180deg, rgba(17,18,20,.95), rgba(17,18,20,0)); }
+  /* ロゴ M6-b：角の開いた枠から、金の矢印が右上へ出る。文字はフォントが読めなくても崩れないよう、文字で組む。 */
+  .logo { display:flex; align-items:center; gap:10px; color:var(--text); font-family:'IBM Plex Sans Condensed','DIN Condensed','Arial Narrow',sans-serif; font-size:17px; line-height:1.1; letter-spacing:.14em; }
+  .logo:hover { color:var(--text); }
+  .logo svg { width:32px; height:32px; flex:none; }
+  header.top nav { display:flex; gap:16px; font-size:13px; }
+  header.top nav a { color:var(--text-sub); padding:12px 0; }
+  header.top nav a:hover { color:var(--gold); }
 
-  .hero { padding: 64px 24px 88px; }
-  .kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--gold); margin-bottom: 20px; }
-  .hero h1 { margin: 0 0 20px; font-size: 40px; line-height: 1.3; font-weight: 700; letter-spacing: .02em; }
-  .hero h1 .hl { color: var(--gold); }
-  html[lang="en"] .hero h1 { font-size: 32px; letter-spacing: 0; }
-  .hero p { margin: 0; font-size: 15px; line-height: 1.9; color: var(--text-sub); max-width: 28em; }
+  /* 右はしの進み具合：金の矢印が、読み進めた分だけ下りていく */
+  .rail { position:fixed; right:10px; top:84px; bottom:28px; width:20px; z-index:4; pointer-events:none; }
+  .rail::before { content:""; position:absolute; left:9px; top:0; bottom:0; width:2px; background:#26282C; border-radius:1px; }
+  .rail .fill { position:absolute; left:9px; top:0; width:2px; height:calc(var(--p,0) * 100%); background:var(--gold); border-radius:1px; }
+  .rail svg { position:absolute; left:0; top:calc(var(--p,0) * 100% - 10px); width:20px; height:20px; fill:var(--gold); transform:rotate(135deg); }
+  .count { position:fixed; left:12px; bottom:10px; z-index:4; background:rgba(17,18,20,.92); border-radius:10px; padding:5px 8px; font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:2px; color:var(--text-muted); pointer-events:none; }
+  .count b { color:var(--gold); font-weight:400; }
 
-  section { padding: 0 24px 72px; }
-  .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
-  .label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .scr { position:relative; min-height:100vh; min-height:100svh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:88px 44px 64px 24px; max-width:880px; margin:0 auto; }
+  #s1 { overflow:hidden; }
+  .kicker { font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:3px; color:var(--gold); margin-bottom:18px; }
+  .bgmark { position:absolute; right:-18%; bottom:-6%; width:min(92vw,560px); opacity:.09; transform:translate(calc(var(--s,0) * -40px), calc(var(--s,0) * 60px)); pointer-events:none; }
+  .bgmark .ar { transform:translate(calc(var(--s,0) * 10px), calc(var(--s,0) * -10px)); }
+  h1 { margin:0 0 22px; font-weight:900; font-size:clamp(34px, 10.5vw, 96px); line-height:1.12; letter-spacing:.01em; }
+  html[lang="en"] h1 { font-size:clamp(30px, 8.6vw, 80px); letter-spacing:0; }
+  h1 .hl { color:var(--gold); display:inline-block; }
+  .lead { margin:0; font-size:16px; line-height:1.9; color:var(--text-sub); max-width:26em; }
+  .down { margin-top:36px; font-size:13px; color:var(--text-muted); display:flex; align-items:center; gap:10px; }
+  .down i { width:1px; height:36px; background:var(--gold); display:block; flex:none; transform-origin:top; animation:drop 2s ease-in-out infinite; }
+  @keyframes drop { 0% { transform:scaleY(0); } 50% { transform:scaleY(1); } 100% { transform:scaleY(1); opacity:0; } }
 
-  /* アプリが増えたら .card を足す。スマホは縦に1列、PC は2列。 */
-  .apps { display: grid; grid-template-columns: 1fr; gap: 12px; }
-  .card { background: var(--card); border-radius: 16px; padding: 28px 24px; }
-  .card-head { display: flex; gap: 16px; align-items: center; margin-bottom: 20px; }
-  .card-head img { width: 60px; height: 60px; border-radius: 14px; background: #000; display: block; }
-  .card-head .name { font-size: 22px; font-weight: 700; }
-  .card-head .status { font-size: 12px; color: var(--gold); margin-top: 2px; }
-  .card p { margin: 0 0 20px; font-size: 15px; line-height: 1.9; color: var(--text-body); }
-  .features { margin: 0 0 24px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.6; color: var(--text-sub); }
-  .features li { padding-left: 16px; position: relative; }
-  .features li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
-  /* 料金：基本無料とプレミアムプランの値段を、同じ大きさの2行で並べる */
-  .plans { margin: 0 0 20px; display: flex; flex-direction: column; gap: 4px; }
-  .plans p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-body); }
-  .plans b { color: var(--text); font-weight: 700; }
-  .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; margin-bottom: 20px; }
-  .price .amount { font-family: 'JetBrains Mono', monospace; font-weight: 300; font-size: 34px; }
-  .price .note { font-size: 13px; color: var(--text-muted); }
-  .cta { display: flex; justify-content: center; align-items: center; height: 52px; border-radius: 26px; background: var(--gold); color: var(--bg); font-weight: 700; }
-  .cta:hover { background: var(--gold-hover); color: var(--bg); }
-  .more { display: block; text-align: center; font-size: 14px; padding: 14px 0 0; }
-  .soon { display: flex; align-items: center; justify-content: center; padding: 18px 24px; border-radius: 16px; color: var(--text-muted); font-size: 14px; text-align: center; box-shadow: inset 0 0 0 1px var(--line); }
+  .num { font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-weight:300; font-size:13px; color:var(--text-muted); letter-spacing:2px; margin-bottom:10px; }
+  h2 { margin:0 0 6px; font-weight:900; font-size:clamp(36px, 10vw, 64px); line-height:1.15; }
+  .head { display:flex; align-items:center; gap:14px; margin-bottom:6px; }
+  .head img { width:48px; height:48px; border-radius:12px; background:#000; flex:none; }
+  .head h2 { margin:0; }
+  .status { font-size:12px; color:var(--gold); margin-bottom:10px; }
+  .cta { display:inline-flex; justify-content:center; align-items:center; text-align:center; min-height:48px; padding:6px 22px; border-radius:26px; background:var(--gold); color:var(--bg); font-weight:700; }
+  .cta:hover { background:var(--gold-hover); color:var(--bg); }
 
-  .tool { display: flex; justify-content: space-between; align-items: center; gap: 16px; background: var(--card); border-radius: 16px; padding: 22px 24px; color: var(--text); }
-  .tool:hover { color: var(--text); box-shadow: inset 0 0 0 1px var(--gold); }
-  .tool .name { display: block; color: var(--gold); font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-  .tool .desc { font-size: 13px; color: var(--text-sub); line-height: 1.7; }
-  .tool .arrow { color: var(--gold); font-size: 20px; }
+  /* アプリを横に並べる。スマホでは次のカードが少し見えて、横にスワイプできる。アプリが増えたら .app を足す。 */
+  .apps { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -44px 0 -24px; padding:4px 44px 4px 24px; scroll-padding:0 24px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .apps::-webkit-scrollbar { display:none; }
+  .app { flex:0 0 88%; scroll-snap-align:start; background:var(--card); border-radius:20px; padding:20px; display:flex; flex-direction:column; }
+  .app h2 { font-size:clamp(26px, 7.4vw, 34px); }
+  .app p.t { font-size:14px; line-height:1.8; margin:0 0 14px; color:var(--text-body); }
+  .app .plan { font-size:13px; line-height:1.7; color:var(--text-sub); margin:0 0 14px; }
+  .app .plan b { color:var(--text); }
+  .acts { display:flex; flex-wrap:wrap; align-items:center; gap:4px 14px; }
+  .acts .more { font-size:14px; padding:12px 0; }
+  .soon { flex:0 0 60%; scroll-snap-align:start; display:flex; align-items:center; justify-content:center; padding:24px; border-radius:20px; color:var(--text-muted); font-size:14px; text-align:center; box-shadow:inset 0 0 0 1px var(--line); }
+  .pager { display:flex; align-items:center; gap:6px; margin-top:14px; font-size:12px; color:var(--text-muted); }
+  .pager i { width:6px; height:6px; border-radius:3px; background:#3A3B3F; transition:width .3s, background .3s; }
+  .pager i.on { width:18px; background:var(--gold); }
+  .pager span { margin-left:8px; }
 
-  .about dl { margin: 0; display: grid; grid-template-columns: 96px 1fr; row-gap: 14px; font-size: 14px; line-height: 1.7; }
-  .about dt { color: var(--text-muted); }
-  .about dd { margin: 0; min-width: 0; }
-  .contact-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; overflow-wrap: anywhere; }
-  .copy-btn { font: inherit; font-size: 12px; color: var(--text-sub); background: #1E2024; border: 0; border-radius: 12px; padding: 6px 14px; cursor: pointer; }
-  .contact-line a { text-decoration: underline; text-underline-offset: 3px; }
-  .copy-btn:hover { color: var(--gold); }
+  /* カードの中の体験：Anti-Dopa の待機画面と、IRONOTE のグラフ */
+  .try { background:var(--card2); border-radius:16px; padding:20px; text-align:center; min-height:212px; width:100%; margin-bottom:16px; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; }
+  .try .cap { font-size:12px; color:var(--text-muted); line-height:1.6; }
+  .btn { font:inherit; font-size:14px; font-weight:700; color:var(--bg); background:var(--gold); border:0; border-radius:22px; min-height:44px; padding:6px 22px; cursor:pointer; }
+  .btn.ghost { background:transparent; color:var(--text-sub); box-shadow:inset 0 0 0 1px #3A3B3F; }
+  .ring { position:relative; width:120px; height:120px; }
+  .ring svg { width:100%; height:100%; transform:rotate(-90deg); }
+  .ring circle { fill:none; stroke-width:6; }
+  .ring .tr { stroke:#2E3034; }
+  .ring .pg { stroke:var(--gold); stroke-linecap:round; stroke-dasharray:327; stroke-dashoffset:0; }
+  .ring .n { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-weight:300; font-size:40px; }
+  .breath { animation:breath 4s ease-in-out infinite; }
+  @keyframes breath { 50% { transform:scale(1.08); } }
+  .msg { font-size:15px; color:var(--text); line-height:1.7; }
+  .chart { width:100%; }
+  .bars { display:flex; align-items:flex-end; gap:8px; height:110px; width:100%; }
+  .bars div { flex:1; background:#3A3B3F; border-radius:4px 4px 0 0; height:var(--h); transform:scaleY(0); transform-origin:bottom; transition:transform .9s cubic-bezier(.2,.8,.2,1); transition-delay:var(--b); }
+  .bars div:last-child { background:var(--gold); }
+  .go .bars div { transform:scaleY(1); }
+  .kg { margin-top:10px; font-size:13px; color:var(--text-sub); }
+  .kg b { font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-weight:300; font-size:28px; color:var(--text); }
 
-  footer { margin-top: auto; padding: 32px 24px 48px; font-size: 12px; color: var(--text-muted); }
+  /* 計算：大きな数字と、1年365日の点 */
+  .q { font-size:17px; font-weight:700; margin:0 0 8px; }
+  .giant { font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-weight:300; font-size:clamp(64px, 21vw, 150px); line-height:1; color:var(--gold); font-variant-numeric:tabular-nums; }
+  .giant small { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:18px; color:var(--text); margin-left:8px; }
+  #mini { width:100%; max-width:520px; height:130px; display:block; margin:16px 0 4px; }
+  input[type=range] { width:100%; max-width:520px; accent-color:var(--gold); height:36px; margin:6px 0; display:block; }
+  .sub { font-size:13px; color:var(--text-sub); line-height:1.8; margin:0 0 18px; max-width:38em; }
 
-  @media (min-width: 720px) {
-    .hero { padding: 96px 24px 104px; }
-    .hero h1, html[lang="en"] .hero h1 { font-size: 48px; }
-    .apps { grid-template-columns: 1fr 1fr; }
-  }
+  .about dl { margin:14px 0 0; display:grid; grid-template-columns:minmax(64px, auto) 1fr; column-gap:16px; row-gap:14px; font-size:14px; line-height:1.7; }
+  .about dt { color:var(--text-muted); }
+  .about dd { margin:0; min-width:0; }
+  .contact-line { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; overflow-wrap:anywhere; }
+  .contact-line a { text-decoration:underline; text-underline-offset:3px; }
+  .copy-btn { font:inherit; font-size:12px; color:var(--text-sub); background:#1E2024; border:0; border-radius:12px; padding:6px 14px; cursor:pointer; }
+  .copy-btn:hover { color:var(--gold); }
+  footer { font-size:12px; color:var(--text-muted); margin-top:32px; }
+
+  /* 動き：その画面に入ったときに、ずれた位置から入ってくる。JavaScript が動かないときは、最初から全部見える。 */
+  .js .fx { opacity:0; transition:opacity .9s ease, transform 1s cubic-bezier(.2,.8,.2,1); transition-delay:var(--d,0s); }
+  .js .fx.l { transform:translateX(-36px); }
+  .js .fx.r { transform:translateX(60px) rotate(3deg); }
+  .js .fx.u { transform:translateY(40px); }
+  .js .on .fx { opacity:1; transform:none; }
+  html:not(.js) .bars div { transform:none; }
+  html:not(.js) .rail, html:not(.js) .count, html:not(.js) .try.needs-js { display:none; }
+  @media (min-width:760px) { .apps { margin:0; padding:4px 0; overflow:visible; } .app { flex:1 1 0; padding:26px; } .soon { flex:0 0 150px; } .pager { display:none; } .scr { padding-left:40px; } }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; scroll-snap-type:none; } .js .fx { transition:none; opacity:1; transform:none !important; } .down i, .breath { animation:none; } .bars div { transition:none; transform:none; } .bgmark, .bgmark .ar { transform:none; } }
 </style>
 </head>
 <body>
-<div class="page">
+<header class="top">
+  <a class="logo" href="/" aria-label="Forward Place"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#F2F0EA" d="M6 15H22V20H11V37H28V26H33V42H6Z"/><path fill="#D9B45A" d="M16 28.5L30 14.5H24V8H40V24H33.5V18L19.5 32Z"/></svg><span aria-hidden="true">FORWARD<br>PLACE</span></a>
+  <nav><a href="#contact">お問い合わせ</a><a href="/index-en.html" lang="en" hreflang="en">English</a></nav>
+</header>
+<div class="rail" id="rail" aria-hidden="true"><div class="fill"></div><svg viewBox="0 0 48 48"><path d="M16 28.5L30 14.5H24V8H40V24H33.5V18L19.5 32Z"/></svg></div>
+<div class="count" aria-hidden="true"><b id="cur">01</b> / 04</div>
 
-  <header class="top">
-    <a class="logo" href="/" aria-label="Forward Place"><span aria-hidden="true">FORWARD</span><span class="l2" aria-hidden="true">PLACE<svg viewBox="0 0 60 64"><path d="M2 32H58M30 2L59 32L30 62" fill="none" stroke="#D9B45A" stroke-width="8"/></svg></span></a>
-    <nav>
-      <a href="#contact">お問い合わせ</a>
-      <a href="/index-en.html" lang="en" hreflang="en">English</a>
-    </nav>
-  </header>
-
-  <section class="hero">
-    <div class="kicker">APPS FOR BETTER HABITS</div>
-    <h1>習慣を変えて、<br>人生を<span class="hl">前へ</span>。</h1>
-    <p>スマホに振り回されない毎日のための、アプリをつくっています。</p>
+<main>
+  <section class="scr" id="s1">
+    <svg class="bgmark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#F2F0EA" d="M6 15H22V20H11V37H28V26H33V42H6Z"/><path class="ar" fill="#D9B45A" d="M16 28.5L30 14.5H24V8H40V24H33.5V18L19.5 32Z"/></svg>
+    <div class="kicker fx u">APPS FOR BETTER HABITS</div>
+    <h1><span class="fx l" style="display:block">習慣を変えて、</span><span class="fx l" style="display:block;--d:.15s">人生を<span class="hl">前へ</span>。</span></h1>
+    <p class="lead fx u" style="--d:.4s">スマホに振り回されない毎日のための、アプリをつくっています。</p>
+    <div class="down fx u" style="--d:.7s" aria-hidden="true"><i></i>下へ進んでください</div>
   </section>
 
-  <section>
-    <div class="label">PRODUCT</div>
-    <div class="apps">
-      <div class="card">
-        <div class="card-head">
-          <img src="icon-anti-dopa.png" alt="">
-          <div>
-            <div class="name">Anti-Dopa</div>
-            <div class="status">公開中 ・ Android</div>
+  <section class="scr" id="s2">
+    <div class="num fx l">01 ・ PRODUCT</div>
+    <div class="apps" id="apps">
+      <article class="app fx r" style="--d:.1s">
+        <div class="head"><img src="icon-anti-dopa.png" alt="" width="48" height="48"><h2>Anti-Dopa</h2></div>
+        <div class="status">公開中 ・ Android</div>
+        <p class="t">開きかけたアプリの前で、ひと呼吸おけます。待ち時間をはさんで、無意識のスマホ利用を自分で止められます。</p>
+        <div class="try needs-js" id="try" aria-live="polite">
+          <div class="cap">ここで体験できます</div>
+          <button class="btn" type="button" id="open">SNS を開いてみる</button>
+        </div>
+        <p class="plan"><b>基本無料</b>（アプリ内購入あり）<br>プレミアムプラン：月額480円／年額2,880円（税込）</p>
+        <div class="acts"><a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">Google Play で入手</a><a class="more" href="/anti-dopa.html">くわしく見る</a></div>
+      </article>
+      <article class="app fx r" style="--d:.25s">
+        <div class="head"><img src="icon-ironote.png" alt="" width="48" height="48"><h2>IRONOTE</h2></div>
+        <div class="status">公開中 ・ Android</div>
+        <p class="t">筋トレの重さと回数を、ノートのように1日1枚のシートに書けます。前のセットや前回の値が、最初から入っています。</p>
+        <div class="try" id="iron">
+          <div class="cap">種目ごとの伸びが、グラフで見えます（見本の数字です）</div>
+          <div class="chart">
+            <div class="bars" aria-hidden="true"><div style="--h:44%;--b:0s"></div><div style="--h:50%;--b:.08s"></div><div style="--h:58%;--b:.16s"></div><div style="--h:63%;--b:.24s"></div><div style="--h:74%;--b:.32s"></div><div style="--h:82%;--b:.4s"></div><div style="--h:100%;--b:.48s"></div></div>
+            <div class="kg">ベンチプレス <b id="kg">82.5</b> kg</div>
           </div>
         </div>
-        <p>開きかけたアプリの前で、ひと呼吸おけます。待ち時間をはさんで、無意識のスマホ利用を自分で止められます。</p>
-        <ul class="features">
-          <li>決めたアプリやサイトを開くと、待機画面が出ます。</li>
-          <li>使う理由を書いてから開けます。</li>
-          <li>使った時間を、先週と比べて振り返れます。</li>
-        </ul>
-        <div class="plans">
-          <p><b>基本無料</b>（アプリ内購入あり）</p>
-          <p>プレミアムプラン：月額480円／年額2,880円（税込）</p>
-        </div>
-        <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.antidopa">Google Play で入手</a>
-        <a class="more" href="/anti-dopa.html">くわしく見る</a>
-      </div>
-      <div class="card">
-        <div class="card-head">
-          <img src="icon-ironote.png" alt="">
-          <div>
-            <div class="name">IRONOTE</div>
-            <div class="status">公開中 ・ Android</div>
-          </div>
-        </div>
-        <p>筋トレの重さと回数を、ノートのように1日1枚のシートに書けます。前のセットや前回の値が、最初から入っています。</p>
-        <ul class="features">
-          <li>今週どの日に何をやったかが、ひと目で分かります。</li>
-          <li>種目ごとの伸びを、グラフと数字で見られます。</li>
-          <li>最大重量の％で組むプログラムを作れます。</li>
-        </ul>
-        <div class="plans">
-          <p><b>無料</b>（アプリ内購入と広告はありません）</p>
-        </div>
-        <a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.ironote">Google Play で入手</a>
-        <a class="more" href="/ironote.html">くわしく見る</a>
-      </div>
-      <div class="soon">新しいアプリを開発中です。</div>
+        <p class="plan"><b>無料</b>（アプリ内購入と広告はありません）</p>
+        <div class="acts"><a class="cta" href="https://play.google.com/store/apps/details?id=com.forwardplace.ironote">Google Play で入手</a><a class="more" href="/ironote.html">くわしく見る</a></div>
+      </article>
+      <div class="soon fx r" style="--d:.4s">新しいアプリを開発中です。</div>
     </div>
+    <div class="pager fx u" style="--d:.4s" id="pager" aria-hidden="true"><i class="on"></i><i></i><i></i><span>横にスワイプできます</span></div>
   </section>
 
-  <section>
-    <div class="label">TOOL</div>
-    <a class="tool" href="/smartphone-time.html">
-      <span><span class="name">スマホ時間 計算</span><span class="desc">1日のスマホ時間が、1年・10年・残りの人生で何日分になるかを計算します。</span></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
+  <section class="scr" id="s3">
+    <div class="num fx l">02 ・ TOOL ・ スマホ時間 計算</div>
+    <p class="q fx l" style="--d:.08s">1日 <span class="mono" id="hrs" style="color:var(--gold)">3.0</span> 時間のスマホは、1年で</p>
+    <div class="giant fx u" style="--d:.16s"><span id="year">45.6</span><small>日分</small></div>
+    <canvas class="fx u" style="--d:.24s" id="mini" aria-hidden="true"></canvas>
+    <input class="fx u" style="--d:.28s" type="range" id="h" min="0.5" max="10" step="0.5" value="3" aria-label="1日のスマホ時間">
+    <p class="sub fx u" style="--d:.32s">点1つが1日で、365個あります。金の点が、1年のうちスマホに使う日数です。つまみを動かすと変わります。</p>
+    <div class="fx u" style="--d:.36s"><a class="cta" href="/smartphone-time.html">くわしく計算する</a></div>
   </section>
 
-  <section class="about" id="contact">
-    <div class="label">ABOUT</div>
-    <dl>
+  <section class="scr about" id="contact">
+    <div class="num fx l">03 ・ ABOUT</div>
+    <h2 class="fx l" style="--d:.08s">Forward Place</h2>
+    <dl class="fx u" style="--d:.2s">
       <dt>運営</dt><dd>Forward Place</dd>
       <dt>事業内容</dt><dd>スマートフォン向けアプリの企画・開発・運営</dd>
       <dt>連絡先</dt>
@@ -181,17 +201,97 @@
         <button class="copy-btn" type="button" onclick="copyEmail(this)" aria-live="polite">コピー</button>
       </dd>
     </dl>
+    <footer class="fx u" style="--d:.3s">© Forward Place</footer>
   </section>
-
-  <footer>© Forward Place</footer>
-
-</div>
+</main>
 <script>
+  document.documentElement.classList.add('js');
+  const T = {"copy": "コピー", "copied": "コピーしました", "breathe": "ひと呼吸おきましょう。", "ask": "それでも、開きますか？", "no": "やめておく", "yes": "開く", "stopped": "1回、止められました。この積み重ねが、時間を取り戻します。", "opened": "開くこともできます。止めるのではなく、選べるようにするアプリです。", "again": "もう一度"};
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = id => document.getElementById(id);
+  const scrs = [...document.querySelectorAll('.scr')], rail = $('rail'), cur = $('cur');
+
   function copyEmail(button) {
-    var text = document.getElementById('email-text').textContent;
-    var done = function () { button.textContent = 'コピーしました'; setTimeout(function () { button.textContent = 'コピー'; }, 2000); };
-    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
+    const done = () => { button.textContent = T.copied; setTimeout(() => { button.textContent = T.copy; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText($('email-text').textContent).then(done, () => {});
   }
+
+  // 画面に入ったら、その画面の中身を動かして見せる
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('on'); cur.textContent = String(scrs.indexOf(e.target) + 1).padStart(2, '0');
+  }), { threshold: .3 });
+  scrs.forEach(s => io.observe(s));
+
+  // IRONOTE のグラフは、カードが見えたとき（横にスワイプしたとき）に伸びる
+  $('kg').textContent = '60.0';
+  const io2 = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; io2.disconnect(); $('iron').classList.add('go');
+    const el = $('kg'), t0 = performance.now();
+    const step = t => { const k = still ? 1 : Math.min(1, (t - t0) / 1400); el.textContent = (60 + 22.5 * (1 - Math.pow(1 - k, 3))).toFixed(1); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }), { threshold: .7 });
+  io2.observe($('iron'));
+
+  // いま見えているアプリを、下の印で示す
+  const apps = $('apps'), dots = [...document.querySelectorAll('#pager i')];
+  apps.addEventListener('scroll', () => {
+    const i = Math.round(apps.scrollLeft / (apps.scrollWidth - apps.clientWidth || 1) * (dots.length - 1));
+    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+  }, { passive: true });
+
+  // 読み進めた分だけ、右の矢印が下りる。1画面目のマークもゆっくり動く
+  let wait = false;
+  function onScroll() {
+    if (wait) return; wait = true;
+    requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      rail.style.setProperty('--p', max > 0 ? Math.min(1, scrollY / max) : 0);
+      if (!still) scrs[0].style.setProperty('--s', Math.min(1, scrollY / innerHeight));
+      wait = false;
+    });
+  }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Anti-Dopa の待機画面の体験（ボタン → 5秒待つ → 開くかどうかを聞く）
+  const box = $('try');
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
+  function start() {
+    box.innerHTML = '<div class="ring breath"><svg viewBox="0 0 120 120"><circle class="tr" cx="60" cy="60" r="52"/><circle class="pg" cx="60" cy="60" r="52"/></svg><div class="n">5</div></div>';
+    box.append(el('div', 'msg', T.breathe));
+    const pg = box.querySelector('.pg'), n = box.querySelector('.n'), t0 = performance.now();
+    const step = t => {
+      const k = Math.min(1, (t - t0) / 5000);
+      pg.style.strokeDashoffset = 327 * k; n.textContent = Math.max(1, Math.ceil(5 - k * 5));
+      if (k < 1) requestAnimationFrame(step); else ask();
+    };
+    requestAnimationFrame(step);
+  }
+  function ask() {
+    const row = el('div'); row.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;justify-content:center';
+    const no = el('button', 'btn', T.no), yes = el('button', 'btn ghost', T.yes);
+    no.type = yes.type = 'button'; no.onclick = () => done(T.stopped); yes.onclick = () => done(T.opened);
+    row.append(no, yes); box.replaceChildren(el('div', 'msg', T.ask), row);
+  }
+  function done(text) {
+    const again = el('button', 'btn ghost', T.again); again.type = 'button'; again.onclick = start;
+    box.replaceChildren(el('div', 'msg', text), again);
+  }
+  $('open').onclick = start;
+
+  // スマホ時間：1年365日の点
+  const mc = $('mini'), mx = mc.getContext('2d');
+  function mini() {
+    const r = mc.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1);
+    mc.width = r.width * d; mc.height = r.height * d; mx.setTransform(d, 0, 0, d, 0, 0);
+    const h = +$('h').value, days = h * 365 / 24, cols = 37, rows = 10, gx = r.width / cols, gy = r.height / rows, rad = Math.min(gx, gy) * .32;
+    for (let i = 0; i < 365; i++) {
+      mx.fillStyle = i < Math.round(days) ? '#D9B45A' : '#3A3B3F';
+      mx.beginPath(); mx.arc((i % cols + .5) * gx, (Math.floor(i / cols) + .5) * gy, rad, 0, 6.3); mx.fill();
+    }
+    $('hrs').textContent = h.toFixed(1); $('year').textContent = days.toFixed(1);
+  }
+  $('h').addEventListener('input', mini); addEventListener('resize', mini); mini();
 </script>
 </body>
 </html>

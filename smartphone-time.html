@@ -8,6 +8,9 @@
 <link rel="alternate" hreflang="ja" href="https://forwardplace.jp/smartphone-time.html">
 <link rel="alternate" hreflang="en" href="https://forwardplace.jp/smartphone-time-en.html">
 <link rel="canonical" href="https://forwardplace.jp/smartphone-time.html">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
   :root {
     --bg: #111214; --card: #1A1C1F; --line: #26282C; --card-line: #2E3034;
@@ -27,12 +30,6 @@
   header.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 24px; }
   header.top .back { font-size: 14px; text-decoration: none; padding: 12px 0; }
   header.top .nav { display: flex; gap: 20px; }
-  /* 文字ロゴ「FORWARD / PLACE →」（トップと同じ） */
-  .logo { display: inline-grid; color: #F2F0EA; text-decoration: none; font-family: 'IBM Plex Sans Condensed', 'DIN Condensed', 'Arial Narrow', sans-serif; font-size: 22px; line-height: 1.1; letter-spacing: .14em; }
-  .logo:hover { color: #F2F0EA; }
-  .logo > span:first-child { margin-right: -.14em; }
-  .logo .l2 { display: flex; justify-content: space-between; align-items: center; }
-  .logo svg { width: 12px; height: 13px; flex: none; }
 
   main { width: 100%; max-width: 560px; margin: 0 auto; padding: 16px 24px 56px; }
   h1 { font-size: 26px; font-weight: 700; margin: 0 0 6px; }
@@ -84,13 +81,35 @@
   .copyright { color: var(--text-muted); }
 
   @media (min-width: 560px) { .grid { grid-template-columns: 1fr 1fr; } }
+  /* ロゴ M6-b（トップと同じ） */
+  .logo { display: flex; align-items: center; gap: 10px; color: #F2F0EA; text-decoration: none; font-family: 'IBM Plex Sans Condensed', 'DIN Condensed', 'Arial Narrow', sans-serif; font-size: 17px; line-height: 1.1; letter-spacing: .14em; }
+  .logo:hover { color: #F2F0EA; }
+  .logo svg { width: 32px; height: 32px; flex: none; }
+  /* 大きな数字と、1年365日の点。金の点が、スマホに使う日数 */
+  h1 { font-size: clamp(28px, 8.4vw, 44px); font-weight: 900; line-height: 1.2; }
+  .giant { font-size: clamp(64px, 21vw, 132px); font-weight: 300; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; margin: 4px 0 0; }
+  .giant small { font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo, system-ui, sans-serif; font-weight: 700; font-size: 18px; color: var(--text); margin-left: 8px; }
+  #dots { width: 100%; height: 130px; display: block; margin: 14px 0 4px; }
+  .dots-note { margin: 0 0 16px; }
+  /* 右はしの進み具合：金の矢印が、読み進めた分だけ下りていく */
+  .rail { position: fixed; right: 10px; top: 84px; bottom: 28px; width: 20px; z-index: 4; pointer-events: none; }
+  .rail::before { content: ""; position: absolute; left: 9px; top: 0; bottom: 0; width: 2px; background: #26282C; border-radius: 1px; }
+  .rail .fill { position: absolute; left: 9px; top: 0; width: 2px; height: calc(var(--p, 0) * 100%); background: var(--gold); border-radius: 1px; }
+  .rail svg { position: absolute; left: 0; top: calc(var(--p, 0) * 100% - 10px); width: 20px; height: 20px; fill: var(--gold); transform: rotate(135deg); }
+  html:not(.js) .rail, html:not(.js) .giant, html:not(.js) #dots, html:not(.js) .dots-note { display: none; }
+  @media (max-width: 640px) { main, header.top, footer { padding-right: 44px; } }
+  /* 動き：画面に入ったところから、下からふわっと現れる */
+  .js .fx { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+  .js .fx.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .js .fx { transition: none; opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
+<div class="rail" id="rail" aria-hidden="true"><div class="fill"></div><svg viewBox="0 0 48 48"><path d="M16 28.5L30 14.5H24V8H40V24H33.5V18L19.5 32Z"/></svg></div>
 <div class="page">
 
   <header class="top">
-    <a class="logo" href="/" aria-label="Forward Place"><span aria-hidden="true">FORWARD</span><span class="l2" aria-hidden="true">PLACE<svg viewBox="0 0 60 64"><path d="M2 32H58M30 2L59 32L30 62" fill="none" stroke="#D9B45A" stroke-width="8"/></svg></span></a>
+    <a class="logo" href="/" aria-label="Forward Place"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#F2F0EA" d="M6 15H22V20H11V37H28V26H33V42H6Z"/><path fill="#D9B45A" d="M16 28.5L30 14.5H24V8H40V24H33.5V18L19.5 32Z"/></svg><span aria-hidden="true">FORWARD<br>PLACE</span></a>
     <div class="nav">
       <a class="back" href="/smartphone-time-en.html" lang="en" hreflang="en">English</a>
       <a class="back" href="/">&larr;&nbsp;トップへ</a>
@@ -113,6 +132,9 @@
 
     <section class="block">
       <h2>結果</h2>
+      <div class="giant mono" aria-hidden="true"><span id="gy"></span><small>日分</small></div>
+      <canvas id="dots" aria-hidden="true"></canvas>
+      <p class="note dots-note">点1つが1日で、365個あります。金の点が、1年のうちスマホに使う日数です。</p>
       <div class="grid" aria-live="polite">
         <div class="stat"><div class="k">1年で</div><div class="v mono" id="year"></div><div class="s" id="yearH"></div></div>
         <div class="stat"><div class="k">10年で</div><div class="v mono" id="ten"></div></div>
@@ -219,6 +241,7 @@ function render() {
   const h = +$("h").value + +$("m").value / 60;          // hours a day
   const yearH = h * 365;
   $("year").innerHTML = fmt1(yearH / 24) + u(L.daysU);
+  drawDots(yearH / 24);
   $("yearH").textContent = hoursText(fmt(yearH));
   const tenMonths = Math.round(h * 3650 / 24 / 365 * 12);
   const [y, yu, m, mu] = tenText(Math.floor(tenMonths / 12), tenMonths % 12);
@@ -260,6 +283,34 @@ if ($("sex")) [...$("sex").children].forEach(b => b.onclick = () => {
   render();
 });
 ["h", "m", "age", "life"].forEach(id => $(id) && $(id).addEventListener("input", render));
+
+// ── 動き（新デザイン）：大きな数字と365個の点、スクロールで現れる画面、右はしの矢印 ──
+document.documentElement.classList.add("js");
+const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let gShown = 0, gDays = 0;
+function drawDots(days) {
+  gDays = days;
+  const c = $("dots"), r = c.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1), x = c.getContext("2d");
+  c.width = r.width * d; c.height = r.height * d; x.setTransform(d, 0, 0, d, 0, 0);
+  const cols = 37, rows = 10, gx = r.width / cols, gy = r.height / rows, rad = Math.min(gx, gy) * .32;
+  for (let i = 0; i < 365; i++) {
+    x.fillStyle = i < Math.round(days) ? "#D9B45A" : "#3A3B3F";
+    x.beginPath(); x.arc((i % cols + .5) * gx, (Math.floor(i / cols) + .5) * gy, rad, 0, 6.3); x.fill();
+  }
+  if (still || document.hidden) { $("gy").textContent = fmt1(days); gShown = days; return; }   // 動かさないときは、すぐ数字を出す
+  const from = gShown, t0 = performance.now();
+  const step = t => { const k = still ? 1 : Math.min(1, (t - t0) / 450), v = from + (days - from) * (1 - Math.pow(1 - k, 3)); $("gy").textContent = fmt1(v); if (k < 1 && gDays === days) requestAnimationFrame(step); else if (k >= 1) gShown = days; };
+  requestAnimationFrame(step);
+}
+addEventListener("resize", () => drawDots(gDays));
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .08 });
+document.querySelectorAll("main > section").forEach(s => { s.classList.add("fx"); io.observe(s); });
+let railWait = false;
+function onScroll() {
+  if (railWait) return; railWait = true;
+  requestAnimationFrame(() => { const max = document.documentElement.scrollHeight - innerHeight; $("rail").style.setProperty("--p", max > 0 ? Math.min(1, scrollY / max) : 0); railWait = false; });
+}
+addEventListener("scroll", onScroll, { passive: true }); onScroll();
 render();
 </script>
 </body>
